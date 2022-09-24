@@ -1,0 +1,125 @@
+.panel-form{
+
+}
+.row-form{
+    padding: 8px;
+    display: flex;
+    justify-content: flex-end;
+}
+.row-form label{
+    margin-right: 20px;
+}
+.panel-form input{
+    width: 20rem;
+    border-radius: 6px;
+    height: 2.2rem;
+    border: solid 1px;
+}
+.flex{
+    display: flex;
+}
+.center{
+    justify-content: center;
+}
+
+.w-100{
+    width: 100%;
+}
+
+.form-register{
+    justify-content: center;
+    -webkit-box-shadow: 2px 2px 5px 1px rgb(0 0 0 / 58%);
+    box-shadow: 2px 2px 5px 1px rgb(0 0 0 / 58%);
+    max-width: 50%;
+    background-color: white;
+}
+.form-register form{
+    padding: 45px;
+
+}
+.form-register header{
+    background: linear-gradient(90deg, rgb(1 69 157) 0%, rgb(1 132 191) 100%);
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    font-size: 14pt;
+    padding: 11px;
+}
+.form-register header svg{
+    text-decoration: none !important;
+    color: white;
+    font-size: 13pt;
+}
+.form-register button[type='submit']{
+    background: linear-gradient(90deg, rgb(1 69 157) 0%, rgb(1 132 191) 100%);
+    border: unset;
+    width: 100%;
+    color: white;
+    font-weight: 500;
+    padding: 5px;
+    margin-top: 10px;
+    border-radius: 8px;
+    font-size: 13pt;
+}
+.form-register input[type='file']{
+    display: none;
+}
+.form-register div{
+    margin-bottom: 15px;
+}
+.form-register input{
+    height: 2rem;
+}
+.form-register input,textarea{
+    width: 100%;
+    border: solid 1px #00449d;
+    border-radius: 8px;
+    padding: 6px;
+}
+.form-register label{
+    color: #00449d;
+    font-weight: 600;
+}
+.col-form{
+
+}
+.center{
+    justify-content: center;
+}
+.grid-r{
+    display: grid;
+    grid-template-columns: 59% 39%;
+    gap: 2%;
+}
+
+.grid-half{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2%;
+}
+.file{
+    background-color: #00449d;
+    color: white !important;
+    text-align: center;
+    padding: 7px;
+    border-radius: 10px;
+    font-weight: 500 !important;
+    font-size: 12pt;
+    justify-content: center;
+
+}
+.file label{
+    color: white !important;
+    font-size: 12pt !important;
+    font-weight: 500 !important;
+}
+
+@media(max-width: 768px){
+    .row-form{
+        flex-direction: column;
+    }
+}
+
+body{
+    font-family: 'Montserrat', sans-serif;
+}

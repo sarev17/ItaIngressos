@@ -1,0 +1,14 @@
+a{
+    text-decoration: none !important;
+    font-size: 10pt;
+}
+
+.center{
+    display: flex;
+    align-items: center;
+}
+.action-events a{
+    padding: 10px;
+    font-size: 15pt;
+}
+
