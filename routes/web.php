@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\OrganizerController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Register\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,20 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[HomeController::class,'index']);
 
 // Auth::routes(['verify'=>true]);
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('register-organizer',function(){
     return view('registration.register_organizer');
 });
 Route::resource('registeruser', RegisterController::class);
-
+Route::get('event-detail/{id}',[EventController::class,'detail'])->name('event-detail');
 Route::middleware('auth')->group(function(){
     Route::prefix('organizer')->group(function(){
         Route::get('panel',[OrganizerController::class,'panel'])->name('panel-organizer');

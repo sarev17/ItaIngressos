@@ -15,8 +15,18 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Tickets'),
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | API CONFIGS
+    |--------------------------------------------------------------------------
+    |
+    | CONFIGURAÇÕES DA API
+    |
+    */
+        'commission' => env('COMMISSION_API'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -195,6 +205,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
     ],
 
@@ -212,6 +223,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
     ])->toArray(),
 
 ];

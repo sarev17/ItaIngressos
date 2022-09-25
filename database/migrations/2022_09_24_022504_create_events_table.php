@@ -25,6 +25,7 @@ return new class extends Migration
             $table->float('value_ticket');
             $table->integer('amount_ticket');
             $table->text('info')->nullable();
+            $table->boolean('active')->default(1);
             $table->timestamps();
 
         });

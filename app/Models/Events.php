@@ -16,6 +16,7 @@ class Events extends Model
         'value_ticket',
         'amount_ticket',
         'info',
-        'user_id'
+        'user_id',
+        'active'
     ];
 }
