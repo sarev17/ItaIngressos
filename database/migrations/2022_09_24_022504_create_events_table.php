@@ -19,6 +19,9 @@ return new class extends Migration
                 ->constrained()
                 ->onDelete('cascade');
             $table->text('poster');
+            $table->text('uf');
+            $table->text('city');
+            $table->text('location');
             $table->text('name');
             $table->date('day');
             $table->text('start');

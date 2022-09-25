@@ -11,6 +11,9 @@ class Events extends Model
     protected $fillable = [
         'poster',
         'name',
+        'uf',
+        'city',
+        'location',
         'day',
         'start',
         'value_ticket',

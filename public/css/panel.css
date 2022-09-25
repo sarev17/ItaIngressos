@@ -15,7 +15,7 @@ a{
     justify-content: center;
 }
 
-.card{
+.event-card{
     min-width: max-content !important;
     width: 25%;
     display: flex;
@@ -25,14 +25,33 @@ a{
     padding: 13px;
     margin: 0.2rem
 }
-.card a{
+.event-card a{
     margin-top: 10px;
 }
-.card img{
+.event-card img{
     height: 15rem;
     width: 12rem;
 }
 .panel-cards{
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
+.search-bar{
+    margin: 0 20px;
+}
+.search-bar label{
+    font-size: 1.2rem;
+    color: #0065bd;
+    font-weight: 600;
+}
+.search-bar input{
+    width: 50%;
+    font-size: 12pt;
+    padding: 0.2rem;
+    margin: 0px 10px;
+}
+.search-bar button{
+    font-size: 14pt;
+    background-color: unset;
+    border: none;
+}

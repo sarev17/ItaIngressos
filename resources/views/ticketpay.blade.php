@@ -30,24 +30,48 @@
         font-weight: 900;
         color: white;
         border-radius: 10px;
+        margin: 0 20px;
+    }
+    #data-payer input{
+        display: block;
+        width: 100%;
+        margin: -4px 0 15px 0;
+        border: solid 1px;
+        border-radius: 7px;
+        font-size: 13pt;
+        height: 30px;
     }
 </style>
     <div>
-        <section class="flex-m center">
+        <section class=" pad-panel flex-m center">
                 <figure>
                     <img id="poster" src="/{{$event->poster}}" alt="">
                 </figure>
                 <section style="text-align: center">
                     <h4>{{$event->name}}</h4>
-                    <span>Data: {{strftime('%d de %B',strtotime($event->day))}} as  {{$event->start}}</span>
-                    <span>Valor: R$ {{number_format($event->value_ticket,2,',','.').' + R$ '.
-                        number_format($commissions,2,',','.'). ' de taxa de serviço'}}
-                    </span>
-                    <div id="qrcode">@php echo $qrcode @endphp</div>
-                    <div class="detail-pix flex">
-                        <i class="fa-brands fa-pix"></i>
-                        <span>R$ {{number_format($total,2,',','.')}}</span>
-                    </div>
+                        <span>Local: {{$event->location}} {{$event->city}}-{{$event->uf}}</span>
+                        <span>Data: {{strftime('%d de %B',strtotime($event->day))}} as  {{$event->start}}</span>
+                        <span>Valor: R$ {{number_format($event->value_ticket,2,',','.').' + R$ '.
+                            number_format($commissions,2,',','.'). ' de taxa de serviço'}}
+                        </span>
+                    <form id="data-payer" action="{{route('tickets.store')}}" method="post">
+                        @csrf
+                        <br>
+                        <h5>Dados para gerar o Ingresso</h5>
+                        <input type="hidden" value="{{$event->id}}" name="event_id">
+                        <input required type="text" name="customer_name" placeholder="Nome">
+                        <input required type="email" name="customer_email" placeholder="Email">
+                        <input required minlength="14" onblur="validateCPFBlur(this.value)" class="cpf" type="text" name="customer_cpf" placeholder="CPF">
+                        <input required minlength="14" onblur="validateCPFBlur(this.value)" id="contact" type="text" name="customer_contact" placeholder="Celular">
+                        <small>
+                            <small style="color: rgb(196, 15, 15)">* </small>
+                             Esses dados de contato receberão apenas notificações sobre o ingresso comprado.
+                        </small>
+                        <br><br>
+                        <button class="btn btn-primary" type="submit">Gerar Ingresso</button>
+                    </form>
+                </section>
+                <section style="text-align: center">
                 </section>
         </section>
     </div>

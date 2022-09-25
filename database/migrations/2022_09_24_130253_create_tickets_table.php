@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
+            $table->text('invoice_id');
             $table->foreignId('event_id')->constrained()->onDelete('cascade');
-            $table->double('value');
+            $table->text('customer_name');
             $table->text('customer_cpf');
             $table->text('customer_email');
             $table->text('customer_contact');
-            $table->boolean('used');
+            $table->boolean('used')->default(1);
             $table->timestamps();
         });
     }

@@ -53,7 +53,7 @@ class RegisterController extends Controller
             'contact'=>'required',
             'password'=>'required|min:8',
             'confirm_password'=>'required|min:8',
-            'agency'=>'required'
+            'agency'=>'required',
         ],$messages);
 
         if ($validator->fails()) {

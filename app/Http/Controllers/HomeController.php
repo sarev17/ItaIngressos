@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $events = Events::where('active',1)->get();
+        $events = Events::where('active',1)->orderByDesc('created_at')->get();
         $data = ['events'];
         return view('welcome',compact($data));
     }

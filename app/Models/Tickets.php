@@ -11,7 +11,8 @@ class Tickets extends Model
 
     protected $fillable = [
         'event_id',
-        'value',
+        'invoice_id',
+        'customer_name',
         'customer_cpf',
         'customer_email',
         'customer_contact',
