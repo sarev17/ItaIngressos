@@ -75,14 +75,14 @@ class TicketsController extends Controller
         //gerar pix
         $px[00]="01";
         $px[26][00]="BR.GOV.BCB.PIX";
-        $px[26][01]="joaobatistavasc1104@gmail.com"; #chave pix
+        $px[26][01]="60850726352"; #chave pix
         $px[26][02]=$event->name; #descrição
         $px[52]="0000"; //Merchant Category Code “0000” ou MCC ISO18245
         $px[53]="986"; //Moeda, “986” = BRL: real brasileiro - ISO4217
         $px[54]=$total; //Valor da transação, se comentado o cliente especifica o valor da transação no próprio app. Utilizar o . como separador decimal. Máximo: 13 caracteres.
         $px[58]="BR"; //“BR” – Código de país ISO3166-1 alpha 2
-        $px[59]="JOAO BATISTA"; //Nome do beneficiário/recebedor. Máximo: 25 caracteres.
-        $px[60]="SOBRAL"; //Nome cidade onde é efetuada a transação. Máximo 15 caracteres.
+        $px[59]="BRENO CAMPOS"; //Nome do beneficiário/recebedor. Máximo: 25 caracteres.
+        $px[60]="FORTALEZA"; //Nome cidade onde é efetuada a transação. Máximo 15 caracteres.
         $px[62][05]="***"; //Identificador de transação, quando gerado automaticamente usar ***. Limite 25 caracteres. Vide nota abaixo.
         $pix=montaPix($px);
         $pix.="6304"; //Adiciona o campo do CRC no fim da linha do pix.

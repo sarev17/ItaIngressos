@@ -12,24 +12,40 @@
             width: 100%;
             margin-top: 30px;
         }
+        .panel-cards{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        @media(max-width:420px){
+            .event-card img{
+                width: 10rem;
+            }
+            .event-card{
+                max-width: 145px;
+            }
+            .event-card a{
+                width: 100%;
+            }
+        }
     </style>
     <div>
         <header class="flex-m center"><h1>Eventos Disponíveis</h1></header>
         <br>
         {{-- @include('ajax.searchbar.events-search') --}}
         <br>
-        <section class="panel-cards flex">
+        <section class="panel-cards">
             @if($events->count())
             @foreach ($events as $event )
                 <div class="event-card">
                     <img src="{{$event->poster}}" alt="">
                     <br>
+                    <a class="btn btn-primary" href="{{route('event-detail',['id'=>$event->id])}}">Acessar</a>
+                    <br>
                     <h5>{{$event->name}}</h5>
                     <span>{{$event->city}} - {{$event->uf}}</span>
-                    <span>Local: {{$event->location}}</span>
+                    {{-- <span>Local: {{$event->location}}</span> --}}
                     <span>Entrada: R$ {{number_format($event->value_ticket,2,',','.')}}</span>
                     <span><b>{{strftime('%d de %B',strtotime($event->day))}} as  {{$event->start}}</b></span>
-                    <a class="btn btn-primary" href="{{route('event-detail',['id'=>$event->id])}}">Comprar ingresso</a>
                 </div>
             @endforeach
             @else

@@ -16,24 +16,26 @@ a{
 }
 
 .event-card{
-    min-width: max-content !important;
-    width: 25%;
+    margin: 14px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 13px;
-    margin: 0.2rem
+    max-width: 193px;
+    height: 420px;
 }
 .event-card a{
-    margin-top: 10px;
+
 }
 .event-card img{
     height: 15rem;
     width: 12rem;
 }
 .panel-cards{
-    overflow-x: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
 }
 
 .search-bar{
