@@ -1,6 +1,12 @@
 <?php
 
+use App\Mail\SendMailTicket;
+use App\Models\Tickets;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 function saveImageLocal($name, $img)
 {
@@ -156,4 +162,21 @@ function crcChecksum($str)
     $hex = str_pad($hex, 4, '0', STR_PAD_LEFT);
 
     return $hex;
+}
+
+function sendTicketMail($ticket_id){
+    // try{
+        $ticket = Tickets::find($ticket_id);
+        $image = QrCode::format('png')
+        ->size(300)->errorCorrection('H')
+        ->generate(config('app.url').'/check-ticket?'.$ticket->ticket_code);
+        $output_file = '/public/tickets/' . $ticket->id.md5($ticket->invoice_id).'.png';
+        Storage::disk('local')->put($output_file, $image);
+        $output_file = 'storage'.str_replace('/public','',$output_file);
+        // dd($output_file);
+        Mail::to($ticket->customer_email)->send(new SendMailTicket($ticket,$output_file));
+        echo 'sucesso';
+    // }catch(Exception $e){
+    //     dd($e);
+    // }
 }

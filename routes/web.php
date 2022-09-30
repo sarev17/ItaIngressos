@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\OrganizerController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Payment\IuguActionsController;
 use App\Http\Controllers\Register\RegisterController;
 use App\Http\Controllers\TicketsController;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[HomeController::class,'index']);
+Route::get('/',[HomeController::class,'index'])->name('index');
 
 // Auth::routes(['verify'=>true]);
 Auth::routes();
@@ -36,11 +37,18 @@ Route::prefix('ajax')->group(function () {
 
 Route::resource('registeruser', RegisterController::class);
 Route::resource('tickets',TicketsController::class);
-
+Route::prefix('payment')->group(function(){
+    Route::post('confirm-ticket-payment',[IuguActionsController::class,'paymentTicketConfirm']
+    )->name('payment-ticket-confirm');
+});
 Route::get('event-detail/{id}',[EventController::class,'detail'])->name('event-detail');
 Route::middleware('auth')->group(function(){
     Route::prefix('organizer')->group(function(){
         Route::get('panel',[OrganizerController::class,'panel'])->name('home');
         Route::resource('event', EventController::class);
     });
+});
+
+Route::get('test',function(){
+    return view('test');
 });
