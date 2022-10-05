@@ -19,6 +19,7 @@ class Tickets extends Model
         'customer_contact',
         'used',
         'ticket_code',
+        'ticket_url',
     ];
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Events;
+use App\Models\Tickets;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -137,6 +138,23 @@ class EventController extends Controller
         $total = $event->value_ticket+$commissions;
         $data = ['event','commissions','total'];
         return view('ticketpay',compact($data));
+    }
+    public function checkInTicket(Request $request){
+        // dd($request->all());
+        $data = ['message','ticket'];
+        $message = '';
+        $ticket = Tickets::where('ticket_code',$request->ticket_code)->first();
+        if($ticket){
+            if($ticket->used){
+                $message = 'used';
+                dd('used');
+            }else{
+                $message = 'valid';
+                return view('tickets.ckeckin.checkin-tickest',compact($data));
+            }
+        }else{
+            dd('invalido');
+        }
     }
 
 }

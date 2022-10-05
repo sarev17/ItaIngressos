@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Register\RegisterController;
@@ -20,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/search-user-email/{email}',[RegisterController::class,'searchEmail']);
+
+Route::get('ckeckin-ticket',[EventController::class,'checkInTicket']);
