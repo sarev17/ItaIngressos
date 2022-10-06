@@ -118,7 +118,7 @@ function validateCPF(cpf) {
     if (Resto != parseInt(strCPF.substring(9, 10))){
         $('.cpf').addClass("is-invalid");
         $('.cpf').val('');
-        alert("CPF inválido")
+        // alert("CPF inválido")
 
     }
 
