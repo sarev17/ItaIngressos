@@ -56,6 +56,12 @@ use BaconQrCode\Encoder\QrCode;
                                 Ingresso: R$ {{number_format($event->value_ticket,2,',','.')}}
                                 + R$ {{number_format($commissions,2,',','.')}} de taxa de serviço
                             </span>
+                            <br>
+                            <form action="{{route('payment-ticket-confirm')}}" method="post">
+                                @csrf
+                                <input type="hidden" name="invoice_id" value="1664952638">
+                                <button class="btn btn-primary" type="submit">Test Pay</button>
+                            </form>
                         </center>
                         <div>
                             @php echo $qrcode @endphp

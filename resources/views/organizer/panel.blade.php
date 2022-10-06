@@ -11,6 +11,10 @@
                     <i class="fa-solid fa-calendar-plus"></i>
                     <span>Editar Evento</span>
                 </a>
+                <a class="btn btn-primary" href="{{route('event.create')}}">
+                    <i class="fa-solid fa-calendar-plus"></i>
+                    <span>Checagem de Ingressos</span>
+                </a>
             </nav>
         </section>
     </div>

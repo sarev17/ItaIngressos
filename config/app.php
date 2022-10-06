@@ -16,6 +16,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Tickets'),
+    'url' => env('APP_URL'),
 
 
     /*

@@ -21,7 +21,9 @@ return new class extends Migration
             $table->text('customer_cpf');
             $table->text('customer_email');
             $table->text('customer_contact');
-            $table->boolean('used')->default(1);
+            $table->boolean('used')->default(0);
+            $table->text('ticket_url')->nullable();
+            $table->text('ticket_code')->nullable();
             $table->timestamps();
         });
     }
