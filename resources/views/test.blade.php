@@ -1,29 +1,9 @@
-server {
-    listen 80;
-    listen (::):80 ipv6only=on;
+@php
+    $json = '{"acquirer_reconciliation":[],"additional_info":{"authentication_code":null,"available_balance":null,"bank_info":{"is_same_bank_account_owner":true},"nsu_processadora":null},"authorization_code":null,"binary_mode":false,"brand_id":null,"build_version":"2.113.2","call_for_authorize_id":null,"callback_url":null,"captured":true,"card":{},"charges_details":[],"collector_id":113375212,"corporation_id":null,"counter_currency":null,"coupon_amount":0,"currency_id":"BRL","date_approved":"2022-10-08T04:02:14.000-04:00","date_created":"2022-10-08T04:01:4B8r3B4p7yhRXuBWLqsQ546WR43cqQwrbXMDFnBi6vSJBeif8tPW85a7r7DM961Jvk4hdryZoByEp8GC8HzsqJpRN4FxGM9-09T04:01:41.000-04:00","deduction_schema":null,"description":"Compra de Ingresso no ItaIngressos","differential_pricing_id":null,"external_reference":null,"fee_details":[],"id":50298834809,"installments":1,"integrator_id":null,"issuer_id":null,"live_mode":true,"marketplace_owner":null,"merchant_account_id":null,"merchant_number":null,"metadata":{},"money_release_date":"2022-10-08T04:02:14.000-04:00","money_release_schema":null,"money_release_status":null,"notification_url":"https://f3ea-2804-29b8-5009-3cbc-cd13-9ea7-bda6-ddaa.ngrok.io/api/confirm-payment","operation_type":"regular_payment","order":{},"payer":{"email":"sarev17@alu.ufc.com","entity_type":null,"first_name":null,"id":"1213357448","identification":{"number":null,"type":null},"last_name":null,"operator_id":null,"phone":{"area_code":null,"extension":null,"number":null},"type":null},"payment_method_id":"pix","payment_type_id":"bank_transfer","platform_id":null,"point_of_interaction":{"application_data":{"name":null,"version":null},"business_info":{"sub_unit":"default","unit":"online_payments"},"location":{"source":null,"state_id":null},"sub_type":"INTER_PSP","transaction_data":{"bank_info":{"collector":{"account_holder_name":"Andre Veras","account_id":89364379730,"long_name":"Mercadopago.com Representações Ltda.","transfer_account_id":null},"is_same_bank_account_owner":true,"origin_bank_id":null,"origin_wallet_id":null,"payer":{"account_id":818611446,"external_account_id":null,"id":null,"long_name":"Nu Pagamentos S.A."}},"bank_transfer_id":1654938706,"financial_institution":1,"infringement_notification":{"status":null,"type":null},"qr_code":"00020126580014br.gov.bcb.pix013632eeb2b9-0aa6-41df-b882-8654c5aedbd352040000530398654040.155802BR5907SAREV176009Itapipoca62240520mpqrinter502988348096304B147","qr_code_base64":"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","ticket_url":"https://www.mercadopago.com.br/payments/50298834809/ticket?caller_id=1213357448&hash=67706d16-907a-4050-8021-c99c28048f86","transaction_id":"PIXE18236120202210080801s0543dcdd68"},"type":"OPENPLATFORM"},"pos_id":null,"processing_mode":"aggregator","refunds":[],"shipping_amount":0,"sponsor_id":null,"statement_descriptor":null,"status":"approved","status_detail":"accredited","store_id":null,"taxes_amount":0,"transaction_amount":0.15,"transaction_amount_refunded":0,"transaction_details":{"acquirer_reference":null,"bank_transfer_id":1654938706,"external_resource_url":null,"financial_institution":"1","installment_amount":0,"net_received_amount":0.15,"overpaid_amount":0,"payable_deferral_period":null,"payment_method_reference_id":null,"total_paid_amount":0.15,"transaction_id":"PIXE18236120202210080801s0543dcdd68"}}';
+    $json2 = '{"resource":"https:\/\/api.mercadolibre.com\/collections\/notifications\/50298686836","topic":"payment","id":"50298686836"}';
+    dd(json_decode($json),json_decode($json2));
+@endphp
 
-    # Log files for Debugging
-    access_log /var/log/nginx/laravel-access.log;
-    error_log /var/log/nginx/laravel-error.log;
-
-    # Webroot Directory for Laravel project
-    root /var/www/example.com/public;
-    index index.php index.html index.htm;
-
-    # Your Domain Name
-    server_name 82.180.130.158;
-
-    location / {
-            try_files $uri $uri/ /index.php?$query_string;
-    }
-
-    # PHP-FPM Configuration Nginx
-    location ~ .php$ {
-            try_files $uri =404;
-            fastcgi_split_path_info ^(.+.php)(/.+)$;
-            fastcgi_pass unix:/run/php/php8.1-fpm.sock;
-            fastcgi_index index.php;
-            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-            include fastcgi_params;
-    }
-}
+<script>
+    window.location.href = '/confirm-pay';
+</script>

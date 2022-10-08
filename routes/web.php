@@ -4,9 +4,11 @@ use App\Http\Controllers\Admin\OrganizerController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Payment\IuguActionsController;
+use App\Http\Controllers\Payments\MercadoPagoController;
 use App\Http\Controllers\Register\RegisterController;
 use App\Http\Controllers\TicketsController;
 use Illuminate\Support\Facades\Route;
+use RealRashid\SweetAlert\Facades\Alert;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +40,7 @@ Route::prefix('ajax')->group(function () {
 Route::resource('registeruser', RegisterController::class);
 Route::resource('tickets',TicketsController::class);
 Route::prefix('payment')->group(function(){
-    Route::post('confirm-ticket-payment',[IuguActionsController::class,'paymentTicketConfirm']
+    Route::post('confirm-ticket-payment',[MercadoPagoController::class,'paymentTicketConfirm']
     )->name('payment-ticket-confirm');
 });
 Route::get('event-detail/{id}',[EventController::class,'detail'])->name('event-detail');
@@ -48,7 +50,11 @@ Route::middleware('auth')->group(function(){
         Route::resource('event', EventController::class);
     });
 });
-
+Route::get('verify-payment/{id}',[MercadoPagoController::class,'verifyPayment']);
+Route::get('confirm-pay',function(){
+    Alert::success('Pagamento Confirmado!','Você receberá um email com os dados do ingresso');
+    return redirect()->route('index');
+});
 Route::get('test',function(){
     return view('test');
 });

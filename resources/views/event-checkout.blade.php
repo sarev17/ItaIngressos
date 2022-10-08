@@ -36,6 +36,10 @@ use BaconQrCode\Encoder\QrCode;
             border-radius: 10px;
             width: 50%;
         }
+
+        span {
+            font-size: 12pt;
+        }
     </style>
     <div>
         <h3 class="flex-m center">Confirme os dados do evento e pagamento</h3>
@@ -53,19 +57,18 @@ use BaconQrCode\Encoder\QrCode;
                                 <span></span>
                             </section>
                             <span>
-                                Ingresso: R$ {{number_format($event->value_ticket,2,',','.')}}
-                                + R$ {{number_format($commissions,2,',','.')}} de taxa de serviço
+                                Ingresso: R$ {{ number_format($event->value_ticket, 2, ',', '.') }}
+                                + R$ {{ number_format($commissions, 2, ',', '.') }} de taxa de serviço
                             </span>
                             <br>
-                            <form action="{{route('payment-ticket-confirm')}}" method="post">
-                                @csrf
-                                <input type="hidden" name="invoice_id" value="1665102078">
-                                <button class="btn btn-primary" type="submit">Test Pay</button>
-                            </form>
+                            <div>
+                                <div>
+                                    <h4>Aguardando Pagamento: </h4>
+                                    <span id="timer"></span>
+                                </div>
+                                @php echo $qrcode @endphp
+                            </div>
                         </center>
-                        <div>
-                            @php echo $qrcode @endphp
-                        </div>
                     </div>
                 </div>
             </section>
@@ -77,4 +80,37 @@ use BaconQrCode\Encoder\QrCode;
             </div>
         </center>
     </div>
+    <script>
+        function startTimer(duration, display) {
+            var timer = duration,
+                minutes, seconds;
+            setInterval(function() {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                display.textContent = minutes + ":" + seconds;
+                if (--timer < 0) {
+                    timer = duration;
+                    $.ajax({
+                        method: 'GET',
+                        url: "/verify-payment/{{$ticket->invoice_id}}",
+                        success: function(response) {
+                            if(response == 1){
+                                window.location.href = '/confirm-pay'
+                            }
+                        },
+                        error: function(response) {
+                            console.log("error", response);
+                        }
+                    });
+                }
+            }, 1000);
+        }
+        window.onload = function() {
+            var duration = 15; // Converter para segundos
+            display = document.querySelector('#timer'); // selecionando o timer
+            startTimer(duration, display); // iniciando o timer
+        };
+    </script>
 @endsection

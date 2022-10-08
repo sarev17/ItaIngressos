@@ -25,6 +25,7 @@ return new class extends Migration
             $table->boolean('paid')->default(0);
             $table->text('ticket_url')->nullable();
             $table->text('ticket_code')->nullable();
+            $table->text('qrcode')->nullable();
             $table->timestamps();
         });
     }

@@ -18,8 +18,10 @@ class Tickets extends Model
         'customer_email',
         'customer_contact',
         'used',
+        'paid',
         'ticket_code',
         'ticket_url',
+        'qrcode',
     ];
 
     /**
