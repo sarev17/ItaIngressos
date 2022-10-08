@@ -22,8 +22,6 @@ class MercadoPagoController extends Controller
     }
     public function confirmPayment(Request $request)
     {
-        $json_webhook = json_encode($request->all());
-        // Webhook::create(['invoice_id' => $request->id, 'json' => $json_webhook]);
         try {
             $json = json_encode($request->all());
             if (isset($request->resource)) {
@@ -39,6 +37,9 @@ class MercadoPagoController extends Controller
                         sendTicketMail($ticket->id);
                     }
                 }
+            }else{
+                $json_webhook = json_encode($request->all());
+                Webhook::create(['invoice_id' => $request->data_id, 'json' => $json_webhook]);
             }
             return http_response_code(200);
         } catch (Exception $e) {

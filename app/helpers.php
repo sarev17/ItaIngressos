@@ -185,19 +185,18 @@ function sendTicketMail($ticket_id)
 
 function createPayment(Events $event, $payer, $total)
 {
+    // dd(config('app.url').'/api/confirm-payment');
     $payload = array(
-        'callback_url' => 'https://www.itaingressos.fun',
-        'description' => 'Compra de Ingresso no ItaIngressos',
+        'description' => 'Compra de Ingresso',
         'installments' => 1,
-        'notification_url' => 'https://www.itaingressos.fun/',
         'payer' => array(
             'email' => $payer['email'],
             'first_name' => $payer['first_name'],
             'last_name' => $payer['last_name'],
         ),
-        'notification_url' => 'https://f3ea-2804-29b8-5009-3cbc-cd13-9ea7-bda6-ddaa.ngrok.io/api/confirm-payment',
+        'notification_url' => config('app.webhook'),
         'payment_method_id' => 'pix',
-        'transaction_amount' => 0.15
+        'transaction_amount' => 0.10
         // 'transaction_amount'=>$total
     );
     $ch = curl_init();
@@ -207,7 +206,7 @@ function createPayment(Events $event, $payer, $total)
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
 
     $headers = array();
-    $headers[] = 'Authorization: Bearer APP_USR-8584568091054809-100722-8386288105698be96dc52f749252f643-113375212';
+    $headers[] = 'Authorization: Bearer '.config('app.mercado_pago_access_use');
     $headers[] = 'Content-Type: application/json';
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
@@ -231,7 +230,7 @@ function statusPayment($id)
 
 
     $headers = array();
-    $headers[] = 'Authorization: Bearer APP_USR-8584568091054809-100722-8386288105698be96dc52f749252f643-113375212';
+    $headers[] = 'Authorization: Bearer '.config('app.mercado_pago_access_use');
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
     $result = curl_exec($ch);

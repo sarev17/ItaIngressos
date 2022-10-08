@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
+    'mercado_pago_access_prod' => env('MERCADO_PAGO_ACCESS_PROD'),
+    'mercado_pago_access_test' => env('MERCADO_PAGO_ACCESS_TEST'),
+    'mercado_pago_access_use' => env('MERCADO_PAGO_ACCESS_USE'),
+    'webhook' => env('APP_WEBHOOOK'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
