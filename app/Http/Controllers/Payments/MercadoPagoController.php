@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Payments;
 
 use App\Http\Controllers\Controller;
 use App\Models\Events;
+use App\Models\Logs;
 use App\Models\Tickets;
 use App\Models\Webhook;
 use Carbon\Carbon;
@@ -43,7 +44,7 @@ class MercadoPagoController extends Controller
             }
             return http_response_code(200);
         } catch (Exception $e) {
-            Webhook::create(['invoice_id' => $request->id, 'json' => json_encode($e)]);
+            Logs::create(['type'=>'Checkout','request'=>$e->getMessage()]);
             return http_response_code(500);
         }
     }

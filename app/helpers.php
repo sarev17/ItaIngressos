@@ -2,6 +2,7 @@
 
 use App\Mail\SendMailTicket;
 use App\Models\Events;
+use App\Models\Logs;
 use App\Models\Tickets;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -167,20 +168,21 @@ function crcChecksum($str)
 
 function sendTicketMail($ticket_id)
 {
-    // try{
-    $ticket = Tickets::find($ticket_id);
-    $image = QrCode::format('png')
-        ->size(300)->errorCorrection('H')
-        ->generate($ticket->ticket_url);
-    $output_file = '/public/tickets/' . $ticket->id . md5($ticket->invoice_id) . '.png';
-    Storage::disk('local')->put($output_file, $image);
-    $output_file = 'storage' . str_replace('/public', '', $output_file);
-    // dd($output_file);
-    Mail::to($ticket->customer_email)->send(new SendMailTicket($ticket, $output_file));
-    return 1;
-    // }catch(Exception $e){
-    //     dd($e);
-    // }
+    try{
+        $ticket = Tickets::find($ticket_id);
+        $image = QrCode::format('png')
+            ->size(300)->errorCorrection('H')
+            ->generate($ticket->ticket_url);
+        $output_file = '/public/tickets/' . $ticket->id . md5($ticket->invoice_id) . '.png';
+        Storage::disk('local')->put($output_file, $image);
+        $output_file = 'storage' . str_replace('/public', '', $output_file);
+        // dd($output_file);
+        Mail::to($ticket->customer_email)->send(new SendMailTicket($ticket, $output_file));
+        return 1;
+    }catch(Exception $e){
+        Logs::create(['type'=>'sendEmail','request'=>$e->getMessage()]);
+        return 0;
+    }
 }
 
 function createPayment(Events $event, $payer, $total)
