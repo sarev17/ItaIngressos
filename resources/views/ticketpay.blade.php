@@ -62,7 +62,7 @@
                         <input required type="text" name="customer_name" placeholder="Nome">
                         <input required type="email" name="customer_email" placeholder="Email">
                         <input required minlength="14" onblur="validateCPFBlur(this.value)" class="cpf" type="text" name="customer_cpf" placeholder="CPF">
-                        <input required minlength="14" onblur="validateCPFBlur(this.value)" id="contact" type="text" name="customer_contact" placeholder="Celular">
+                        <input required minlength="14" id="contact" type="text" name="customer_contact" placeholder="Celular">
                         <small>
                             <small style="color: rgb(196, 15, 15)">* </small>
                              Esses dados de contato receberão apenas notificações sobre o ingresso comprado.
