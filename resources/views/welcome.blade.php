@@ -39,7 +39,7 @@
                 <div class="event-card">
                     <img src="{{$event->poster}}" alt="">
                     <br>
-                    <a class="btn btn-primary" href="{{route('event-detail',['id'=>$event->id])}}">Acessar</a>
+                    <a class="btn btn-primary" href="{{route('event-detail',['id'=>$event->id])}}">Comprar</a>
                     <br>
                     <h5>{{$event->name}}</h5>
                     <span>{{$event->city}} - {{$event->uf}}</span>

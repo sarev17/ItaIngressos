@@ -187,6 +187,7 @@ function sendTicketMail($ticket_id)
 
 function createPayment(Events $event, $payer, $total)
 {
+
     // dd(config('app.url').'/api/confirm-payment');
     $payload = array(
         'description' => 'Compra de Ingresso',

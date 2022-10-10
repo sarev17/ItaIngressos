@@ -40,10 +40,18 @@ use BaconQrCode\Encoder\QrCode;
         span {
             font-size: 12pt;
         }
+        #time{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #time svg{
+            margin-left: 15px;
+            font-size: 14pt;
+        }
     </style>
     <div>
         <h3 class="flex-m center">Confirme os dados do evento e pagamento</h3>
-        <br>
         <section class=" pad-panel flex-m center">
             <br><br>
             <section>
@@ -62,11 +70,14 @@ use BaconQrCode\Encoder\QrCode;
                             </span>
                             <br>
                             <div>
-                                <div>
+                                <div id="time">
                                     <h4>Aguardando Pagamento: </h4>
-                                    <span id="timer"></span>
+                                    <i class="fa-spin fa-solid fa-spinner"></i>
+                                    {{-- <span id="timer"></span> --}}
                                 </div>
                                 @php echo $qrcode @endphp
+                                <br>
+                                <button id="copy" onclick="copyCode('TEST')" class="btn btn-primary">Copiar código PIX</button><br><br>
                             </div>
                         </center>
                     </div>
@@ -112,5 +123,19 @@ use BaconQrCode\Encoder\QrCode;
             display = document.querySelector('#timer'); // selecionando o timer
             startTimer(duration, display); // iniciando o timer
         };
+    </script>
+    <script>
+        function copyCode(){
+         text = '{{$ticket->qrcode}}'
+            var input = document.createElement('input');
+            input.setAttribute('value', text);
+            document.body.appendChild(input);
+            input.select();
+            var result = document.execCommand('copy');
+            document.body.removeChild(input);
+            $('#copy').text('Código PIX Copiado!');
+            $('#copy').css('background-color','green')
+
+    }
     </script>
 @endsection

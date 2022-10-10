@@ -6,6 +6,7 @@ a{
 .center{
     display: flex;
     align-items: center;
+    text-align: center;
 }
 .action-events a{
     padding: 10px;
