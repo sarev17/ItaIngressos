@@ -198,8 +198,9 @@ function createPayment(Events $event, $payer, $total)
         ),
         'notification_url' => config('app.webhook'),
         'payment_method_id' => 'pix',
-        'transaction_amount' => 0.10
-        // 'transaction_amount'=>$total
+        // 'transaction_amount' => 0.10,
+        'binary_mode' =>true,
+        'transaction_amount'=>$total
     );
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, 'https://api.mercadopago.com/v1/payments');
