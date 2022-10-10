@@ -198,7 +198,7 @@ function createPayment(Events $event, $payer, $total)
         ),
         'notification_url' => config('app.webhook'),
         'payment_method_id' => 'pix',
-        'transaction_amount' => 0.10
+        'transaction_amount' => 0.20
         // 'transaction_amount'=>$total
     );
     $ch = curl_init();
