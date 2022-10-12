@@ -53,8 +53,8 @@
                     </table>
                 </header>
                 <hr>
-                <h1>André, sua compra foi confirmada!</h1>
-                <span>FESTA DAS FLORES, ITAPIPOCA/CE</span>
+                <h1>{{$ticket->customer_name}}, sua compra foi confirmada!</h1>
+                <span>{{$event->name}}, {{$event->city}}/{{$event->uf}}</span>
                 <span>30/09/2022 ás 22:00h</span>
                 <br>
                 <small>Apresente esse QRCODE na entrada do evento.</small><br>
