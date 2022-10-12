@@ -208,7 +208,7 @@ function createPayment(Events $event, $payer, $total)
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-
+    
     $headers = array();
     $headers[] = 'Authorization: Bearer '.config('app.mercado_pago_access_use');
     $headers[] = 'Content-Type: application/json';
@@ -218,6 +218,7 @@ function createPayment(Events $event, $payer, $total)
     if (curl_errno($ch)) {
         echo 'Error:' . curl_error($ch);
     }
+    dd($result);
     curl_close($ch);
     $payment = json_decode($result);
     return $payment;

@@ -58,3 +58,7 @@ a{
     background-color: unset;
     border: none;
 }
+
+footer i, footer svg{
+    font-size: 1.5rem;
+}

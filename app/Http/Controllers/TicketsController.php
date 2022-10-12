@@ -76,7 +76,7 @@ class TicketsController extends Controller
         // dd($ticket);
         if($ticket == null){
             $payment = createPayment($event,$payer,$total);
-            // dd($payment);
+            dd($payment);
             if(isset($payment->message)){
                 $error = translateMesagesErrors($payment->message);
                 Alert::warning($error);
@@ -91,7 +91,8 @@ class TicketsController extends Controller
                 'customer_contact'=>$request->customer_contact,
                 'ticket_url'=>$payment->point_of_interaction->transaction_data->ticket_url,
                 'ticket_code'=>$payment->point_of_interaction->transaction_data->qr_code_base64,
-                'qrcode'=>$payment->point_of_interaction->transaction_data->qr_code
+                'qrcode'=>$payment->point_of_interaction->transaction_data->qr_code,
+                'price'=>$event->value_ticket
             ]);
         }
 
