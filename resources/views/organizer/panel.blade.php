@@ -20,7 +20,7 @@
                     </nav>
                 </section>
                 <br>
-                <section class="data-panel">
+                {{-- <section class="data-panel">
                     <div class="cards">
                         <div class="card bg-green">
                             <section class="">
@@ -82,7 +82,7 @@
                             </footer>
                         </div>
                     </div>
-                </section>
+                </section> --}}
                 <br><br>
                 <center>
                     <h3>Dados dos seus eventos</h3>

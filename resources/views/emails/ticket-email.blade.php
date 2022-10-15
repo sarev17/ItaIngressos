@@ -47,7 +47,7 @@
                 <header>
                     <table>
                         <tr style="width: 100%">
-                            <td><picture><img width="150px" src="https://www.exibidor.com.br/fotos/noticias/notundefined_1544192395.png" alt=""></picture></td>
+                            <td><picture><img width="150px" src="https://i.ibb.co/tZt8rcw/logo.png" alt=""></picture></td>
                             <td style="width: 100%;text-align:right;color:rgb(6, 83, 197)"><h4>Sua diversão mais próxima de você</h4></td>
                         </tr>
                     </table>

@@ -91,7 +91,8 @@ use BaconQrCode\Encoder\QrCode;
                     <br><br>
 
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="btn-ticket">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                        id="btn-ticket">
                         Gerar Ingresso
                     </button>
 
@@ -109,11 +110,12 @@ use BaconQrCode\Encoder\QrCode;
                                 <div class="modal-body">
                                     <p>Enviamos um código de confirmação para o e-mail <b>sueze@gmail.com</b> digite-o
                                         abaixo:</p>
-                                    <input type="text" placeholder="CODIGO" id="code">
+                                    <input type="number" maxlength="4" minlength="4" type="text" placeholder="CODIGO"
+                                        id="code">
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-primary" id="btn-code">Confirmar</button>
+                                    {{-- <button type="button" class="btn btn-primary" id="btn-code">Confirmar</button> --}}
                                 </div>
                             </div>
                         </div>
@@ -124,17 +126,20 @@ use BaconQrCode\Encoder\QrCode;
             </section>
         </section>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
+        integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         code = null;
         $('#btn-ticket').click(
             function() {
                 email = $('#email').val();
-                alert(email);
+                // alert(email);
                 $.ajax({
                     method: 'GET',
-                    url: "/send-code-email/"+email,
+                    url: "/send-code-email/" + email,
                     success: function(response) {
                         code = response;
                     },
@@ -144,19 +149,17 @@ use BaconQrCode\Encoder\QrCode;
                 });
             }
         );
-        $('#btn-code').click(
-            function() {
-                if(code == null){
+        $('#code').keyup(function() {
+            if ($(this).val().length == 4) {
+                if (code == null) {
                     alert("ajeita isso depois!");
                     return 0;
-                }
-                else if(code == $('#code').val()){
+                } else if (code == $('#code').val()) {
                     $('#data-payer').submit();
-                } 
-                else{
+                } else {
                     alert("código invalido")
                 }
             }
-        );
+        });
     </script>
 @endsection
