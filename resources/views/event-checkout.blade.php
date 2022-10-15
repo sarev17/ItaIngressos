@@ -73,7 +73,7 @@ use BaconQrCode\Encoder\QrCode;
                                 <div id="time">
                                     <h4>Aguardando Pagamento: </h4>
                                     <i class="fa-spin fa-solid fa-spinner"></i>
-                                    {{-- <span id="timer"></span> --}}
+                                    <span id="timer"></span>
                                 </div>
                                 @php echo $qrcode @endphp
                                 <br>
@@ -107,8 +107,9 @@ use BaconQrCode\Encoder\QrCode;
                         method: 'GET',
                         url: "/verify-payment/{{$ticket->invoice_id}}",
                         success: function(response) {
+                            // console.log("{{$ticket->invoice_id}}");
                             if(response == 1){
-                                window.location.href = '/confirm-pay'
+                                window.location.href = '/confirm-pay';
                             }
                         },
                         error: function(response) {
@@ -119,7 +120,7 @@ use BaconQrCode\Encoder\QrCode;
             }, 1000);
         }
         window.onload = function() {
-            var duration = 15; // Converter para segundos
+            var duration = 5; // Converter para segundos
             display = document.querySelector('#timer'); // selecionando o timer
             startTimer(duration, display); // iniciando o timer
         };

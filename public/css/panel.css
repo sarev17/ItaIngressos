@@ -58,3 +58,39 @@ a{
     background-color: unset;
     border: none;
 }
+
+footer i, footer svg{
+    font-size: 1.5rem;
+}
+.cards{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 15px;
+    justify-content: center;
+}
+.card{
+    padding: 15px;
+    line-height: 13pt;
+}
+.card .big{
+    font-size: 1.5rem;
+}
+.card .info{
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+.card section{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.card i, .card svg{
+    font-size: 4rem;
+    opacity: 0.1;
+}
+.card footer{
+    margin-top: 12px;
+}
+.cards span{
+    display: block;
+}

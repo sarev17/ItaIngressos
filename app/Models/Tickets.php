@@ -18,6 +18,7 @@ class Tickets extends Model
         'customer_email',
         'customer_contact',
         'used',
+        'price',
         'paid',
         'ticket_code',
         'ticket_url',
