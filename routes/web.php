@@ -7,6 +7,7 @@ use App\Http\Controllers\Payment\IuguActionsController;
 use App\Http\Controllers\Payments\MercadoPagoController;
 use App\Http\Controllers\Register\RegisterController;
 use App\Http\Controllers\TicketsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use RealRashid\SweetAlert\Facades\Alert;
 
