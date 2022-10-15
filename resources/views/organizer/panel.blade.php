@@ -8,6 +8,7 @@
         background-color: #bbc0ff;
     }
 </style>
+<script type="text/javascript" src="instascan.min.js"></script>
     <div class="panel-content">
         <section>
             <div class="container">

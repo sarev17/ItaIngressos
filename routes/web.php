@@ -60,6 +60,4 @@ Route::get('test',function(){
     return view('test');
 });
 Route::get('send-code-email/{email}', [EventController::class, 'sendCode']);
-Route::middleware(['auth'])->group(function () {
-    Route::get('ckeckin-ticket',[EventController::class,'checkInTicket']);
-});
+
