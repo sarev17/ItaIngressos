@@ -198,6 +198,7 @@ function createPayment(Events $event, $payer, $total)
             'last_name' => $payer['last_name'],
         ),
         'notification_url' => config('app.webhook'),
+        // 'notification_url' => 'https://7d11-2804-29b8-5009-3cbc-bc17-f7b5-acd8-2f07.ngrok.io',
         'payment_method_id' => 'pix',
         // 'transaction_amount' => 0.10,
         'binary_mode' =>true,
@@ -208,7 +209,7 @@ function createPayment(Events $event, $payer, $total)
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-    
+
     $headers = array();
     $headers[] = 'Authorization: Bearer '.config('app.mercado_pago_access_use');
     $headers[] = 'Content-Type: application/json';
@@ -218,7 +219,7 @@ function createPayment(Events $event, $payer, $total)
     if (curl_errno($ch)) {
         echo 'Error:' . curl_error($ch);
     }
-    dd($result);
+    // dd($result);
     curl_close($ch);
     $payment = json_decode($result);
     return $payment;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Events;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,7 +12,7 @@ class OrganizerController extends Controller
 {
     public function panel(){
         $user = Auth::user();
-        $events = Events::where('user_id', $user->id)->get();
+        $events = Events::where('user_id', $user->id)->where('day','>=',Carbon::today())->get();
         $data = ['user', 'events'];
         return view('organizer.panel',compact($data));
     }

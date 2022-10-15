@@ -21,6 +21,6 @@ class IuguActionsController extends Controller
             Alert::success('Pagamento confirmado','Você receberá um email com os dados do ingresso');
             return redirect()->route('index');
         }
-        dd($ticket);
+        // dd($ticket);
     }
 }

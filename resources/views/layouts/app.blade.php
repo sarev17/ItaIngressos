@@ -29,6 +29,12 @@
 
         <!-- Scripts -->
       @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+      <style>
+        #logo{
+            width: 14rem;
+        }
+      </style>
     </head>
     <body>
     @include('sweetalert::alert')
@@ -37,7 +43,7 @@
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{-- <img src="{{asset('img/logo.png')}}" width="200px" alt="imgTeste"> --}}
+                        <img id="logo" src="{{asset('img/logo.png')}}" alt="" width="15rem">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
@@ -82,7 +88,7 @@
                                         </form>
                                     </div>
                                 </li>
-                            @endguest 
+                            @endguest
                         </ul>
                     </div>
                 </div>

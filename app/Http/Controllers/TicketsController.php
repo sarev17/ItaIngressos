@@ -76,7 +76,7 @@ class TicketsController extends Controller
         // dd($ticket);
         if($ticket == null){
             $payment = createPayment($event,$payer,$total);
-            dd($payment);
+            // dd($payment);
             if(isset($payment->message)){
                 $error = translateMesagesErrors($payment->message);
                 Alert::warning($error);
