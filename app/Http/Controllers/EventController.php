@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\sendCodeMail;
 use App\Models\Events;
 use App\Models\Tickets;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
+use Illuminate\Support\Facades\Mail;
 
 class EventController extends Controller
 {
@@ -155,6 +157,12 @@ class EventController extends Controller
         }else{
             dd('invalido');
         }
+    }
+
+    public function sendCode($email){
+        $code = rand(1000, 9999);
+        Mail::to($email)->send(new sendCodeMail($code));
+        return $code;
     }
 
 }

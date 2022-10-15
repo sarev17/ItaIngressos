@@ -58,3 +58,4 @@ Route::get('confirm-pay',function(){
 Route::get('test',function(){
     return view('test');
 });
+Route::get('send-code-email/{email}', [EventController::class, 'sendCode']);
