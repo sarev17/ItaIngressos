@@ -1,4 +1,4 @@
-@extends('layouts.app')
+es@extends('layouts.app')
 @section('content')
     <style>
         .bg-green {
@@ -186,7 +186,7 @@
                     });
                     Instascan.Camera.getCameras().then(function(cameras) {
                         if (cameras.length > 0) {
-                            if (cameras.length = 2) {
+                            if (cameras.length = 2) {	
                                 scanner.start(cameras[1]);
                                 $('#cam').css('display','none');
                                 $('#preview-cam').css('opacity',1);
