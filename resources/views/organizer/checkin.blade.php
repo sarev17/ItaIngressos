@@ -11,11 +11,12 @@
 
         .video {
             padding: 20px;
-            width: 400px;
+            transform: scaleX(-1);	   
         }
 
         video {
-            width: 90%
+            max-height:350px;
+	    transform:scaleX(-1);
         }
 
         #client {
@@ -61,7 +62,8 @@
             position: relative;
         }
         #preview-cam img{
-            width: 325px;
+	    display:none;
+            width: 100%;
             position: absolute;
             z-index: 1;
             opacity: 0.8;
@@ -74,8 +76,8 @@
             animation: mover 2.5s infinite  alternate;
         }
         @keyframes mover {
-            0% { transform: translateY(-50px); }
-            100% { transform: translateY(-180px); }
+            0% { transform: translateY(-30px); }
+            100% { transform: translateY(-300px); }
         }
 
     </style>
@@ -180,7 +182,7 @@
                     });
                     Instascan.Camera.getCameras().then(function(cameras) {
                         if (cameras.length > 0) {
-                            scanner.start(cameras[0]);
+                            scanner.start(cameras[1]);
                             $('#cam').css('display','none');
                             $('#preview-cam').css('opacity',1);
 
