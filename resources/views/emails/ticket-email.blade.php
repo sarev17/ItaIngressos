@@ -1,3 +1,6 @@
+@php
+    use Carbon\Carbon;
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +58,7 @@
                 <hr>
                 <h1>{{$ticket->customer_name}}, sua compra foi confirmada!</h1>
                 <span>{{$event->name}}, {{$event->city}}/{{$event->uf}}</span>
-                <span>30/09/2022 ás 22:00h</span>
+                <span>{{Carbon::create($event->day)->format("d/m/Y")}} ás {{$event->start}}h</span>
                 <br>
                 <small>Apresente esse QRCODE na entrada do evento.</small><br>
                 <picture>
