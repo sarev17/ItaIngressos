@@ -11,14 +11,15 @@
 
         .video {
             padding: 20px;
-            transform: scaleX(-1);	   
         }
 
         video {
             max-height:350px;
-	    transform:scaleX(-1);
+	        transform:scaleX(-1);
         }
-
+        #prev{
+            transform: scaleX(-1);
+        }
         #client {
             font-size: 13pt;
         }
@@ -93,7 +94,9 @@
                 <div id="preview-cam">
                     <h5>Aponte a camera para o QRCODE do ingresso</h5>
                     <img src="{{asset('img/back-camera.png')}}" alt="">
-                    <video id="preview"></video>
+                    <div id="prev">
+                        <video id="preview"></video>
+                    </div>
                     <div id="line"></div>
                 </div>
                 <br><br>
