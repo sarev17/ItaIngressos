@@ -5,14 +5,14 @@
 <!-- with a "Quirks Mode" doctype is not supported. -->
 
 <html>
-  <head>
+
+<head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Janusz Białobrzewski" />
     <!--                                                               -->
     <!-- Consider inlining CSS to reduce the number of requested files -->
     <!--                                                               -->
-    <link type="text/css" rel="stylesheet" href="JsQRScanner.css">
 
     <!--                                           -->
     <!-- Any title is fine                         -->
@@ -21,138 +21,299 @@
 
     <!--                                           -->
     <!-- This script loads your compiled module.   -->
-    <script type="text/javascript" src="{{asset('js/scanner/jsqrscanner.nocache.js')}}"></script>
-  </head>
+    <script type="text/javascript" src="{{ asset('js/scanner/jsqrscanner.nocache.js') }}"></script>
+</head>
 
-  <body>
+<body>
 
     <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
     <noscript>
-      <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
-        Your web browser must have JavaScript enabled
-        in order for this application to display correctly.
-      </div>
+        <div
+            style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
+            Habilite o javascript para usar essa aplicação;
+        </div>
     </noscript>
 
+    <center>
+        <section class="video">
+            <br>
+            <div class="panel-content">
+                <div id="cam">
+                    <h4>Iniciando camera</h4>
+                    <i class="fa-fade fa-solid fa-camera"></i>
+                </div>
+                <div id="preview-cam">
+                    <h5>Aponte a camera para o QRCODE do ingresso</h5>
+                    <img src="{{ asset('img/back-camera.png') }}" alt="">
+                    <div class="row-element-set row-element-set-QRScanner">
+                        <div class="qrscanner" id="scanner">
+                        </div>
+                    </div>
+                    <div id="line"></div>
+                </div>
+                <br><br>
+                <section class="info">
+                    <div class="reading">
+                        <h3 id="message">Fazendo a Leitura</h3>
+                        <h3><i class=" fa-spin fa-solid fa-spinner"></i></h3>
+                    </div>
+                    <div class="unauthorized">
+                        <h3 id="message">Não Autorizado!</h3>
+                        <h4>Ingresso Inválido</h4>
+                    </div>
+                    <div class="confirm">
+                        <span id="message"><i class="fa-solid fa-circle-check"></i> Entrada confirmada!</span>
+                        <br>
+                        <span id="client">
+                            <b><span id="qtd">4</span> ingressos</b><br>
+                            <b>Nome: </b><span id="name"></span> <br>
+                            <b>CPF: </b><span id="document"></span>
+                        </span>
+                    </div>
+                    <div class="used">
+                        <span id="message"><i class="fa-solid fa-circle-xmark"></i> Ingresso já usado!</span>
+                        {{-- <br>
+                        <span id="client">
+                            <b><span id="qtd">4</span> ingressos</b><br>
+                            <b>Nome: </b><span id="name"></span> <br>
+                            <b>CPF: </b><span id="document"></span>
+                        </span> --}}
+                    </div>
+
+                </section>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <script type="text/javascript">
+                    function onQRCodeScanned(scannedText) {
+                        console.log('leitura..');
+                        $.ajax({
+                            method: 'GET',
+                            url: "/ckeckin-ticket/" + scannedText + "?event={{ $_GET['event'] }}",
+                            success: function(response) {
+                                $('.reading').css('display', 'block');
+                                $('.used').css('display', 'none');
+                                $('.confirm').css('display', 'none');
+                                $('.unauthorized').css('display', 'none');
+                                setTimeout(function() {
+                                    // alert(response['ticket']['customer_name'])
+                                    if (response['status'] == 'accepted') {
+                                        $('.reading').css('display', 'none');
+                                        $('.confirm').css('display', 'block');
+                                        $('.used').css('display', 'none');
+                                        $('#name').html(response['ticket']['customer_name']);
+                                        $('#document').html(response['ticket']['customer_cpf']);
+                                        $('.unauthorized').css('display', 'none');
+
+                                    }
+                                    if (response['status'] == 'used') {
+                                        $('.reading').css('display', 'none');
+                                        $('.used').css('display', 'block');
+                                        $('.confirm').css('display', 'none');
+                                        $('#name').html(response['ticket']['customer_name']);
+                                        $('#document').html(response['ticket']['customer_cpf']);
+                                        $('.unauthorized').css('display', 'none');
+                                    }
+                                    if (response['status'] == 'unauthorized') {
+                                        $('.reading').css('display', 'none');
+                                        $('.used').css('display', 'none');
+                                        $('.confirm').css('display', 'none');
+                                        $('.unauthorized').css('display', 'block');
+
+                                    }
+                                    if (response['status'] == 'erro') {
+                                        $('.reading').css('display', 'none');
+                                        $('.used').css('display', 'none');
+                                        $('.confirm').css('display', 'none');
+                                        $('.unauthorized').css('display', 'block');
+
+                                    }
+                                    console.log(response);
+                                }, 1000);
+                            },
+                            error: function(response) {
+                                console.log("error", response);
+                            }
+                        });
+
+                    }
+
+                    function provideVideo() {
+                        var n = navigator;
+
+                        if (n.mediaDevices && n.mediaDevices.getUserMedia) {
+                            return n.mediaDevices.getUserMedia({
+                                video: {
+                                    facingMode: "environment"
+                                },
+                                audio: false
+                            });
+                        }
+
+                        return Promise.reject('Your browser does not support getUserMedia');
+                    }
+
+                    function provideVideoQQ() {
+                        return navigator.mediaDevices.enumerateDevices()
+                            .then(function(devices) {
+                                var exCameras = [];
+                                devices.forEach(function(device) {
+                                    if (device.kind === 'videoinput') {
+                                        exCameras.push(device.deviceId)
+                                    }
+                                });
+
+                                return Promise.resolve(exCameras);
+                            }).then(function(ids) {
+                                if (ids.length === 0) {
+                                    return Promise.reject('Could not find a webcam');
+                                }
+
+                                return navigator.mediaDevices.getUserMedia({
+                                    video: {
+                                        'optional': [{
+                                            'sourceId': ids.length === 1 ? ids[0] : ids[
+                                                1] //this way QQ browser opens the rear camera
+                                        }]
+                                    }
+                                });
+                            });
+                    }
+
+                    //this function will be called when JsQRScanner is ready to use
+                    function JsQRScannerReady() {
+                        //create a new scanner passing to it a callback function that will be invoked when
+                        //the scanner succesfully scan a QR code
+                        var jbScanner = new JsQRScanner(onQRCodeScanned);
+                        //var jbScanner = new JsQRScanner(onQRCodeScanned, provideVideo);
+                        //reduce the size of analyzed image to increase performance on mobile devices
+                        jbScanner.setSnapImageMaxSize(300);
+                        var scannerParentElement = document.getElementById("scanner");
+                        if (scannerParentElement) {
+                            //append the jbScanner to an existing DOM element
+                            jbScanner.appendTo(scannerParentElement);
+                        }
+                    }
+                </script>
+
+
+                </body>
+        </section>
+    </center>
     <div class="row-element-set row-element-set-QRScanner">
-      <h1>JsQRScanner example</h1>
-      <div class="row-element">
-        <div class="FlexPanel detailsPanel QRScannerShort">
-          <div class="FlexPanel shortInfoPanel">
-            <div class="gwt-HTML">
-              Point the webcam to a QR code.
-            </div>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="row-element">
         <div class="qrscanner" id="scanner">
         </div>
-      </div>
-      <div class="row-element">
-        <div class="form-field form-field-memo">
-          <div class="form-field-caption-panel">
-            <div class="gwt-Label form-field-caption">
-              Scanned text
-            </div>
-          </div>
-          <div class="FlexPanel form-field-input-panel">
-            <textarea id="scannedTextMemo" class="textInput form-memo form-field-input textInput-readonly" rows="3" readonly>
-            </textarea>
-          </div>
-        </div>
-        <div class="form-field form-field-memo">
-          <div class="form-field-caption-panel">
-            <div class="gwt-Label form-field-caption">
-              Scanned text history
-            </div>
-          </div>
-          <div class="FlexPanel form-field-input-panel">
-            <textarea id="scannedTextMemoHist" class="textInput form-memo form-field-input textInput-readonly" value="" rows="6" readonly>
-            </textarea>
-          </div>
-        </div>
-      </div>
-      <br>
-      <a style="font-weight: bold;" href="https://github.com/jbialobr/JsQRScanner">The source code is hosted on GitHub</a>
     </div>
-  <script type="text/javascript">
-    function onQRCodeScanned(scannedText)
-    {
-    	var scannedTextMemo = document.getElementById("scannedTextMemo");
-    	if(scannedTextMemo)
-    	{
-    		scannedTextMemo.value = scannedText;
-    	}
-    	var scannedTextMemoHist = document.getElementById("scannedTextMemoHist");
-    	if(scannedTextMemoHist)
-    	{
-    		scannedTextMemoHist.value = scannedTextMemoHist.value + '\n' + scannedText;
-    	}
-    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="text/javascript">
+        function onQRCodeScanned(scannedText) {
+            console.log('leitura..');
+            $.ajax({
+                method: 'GET',
+                url: "/ckeckin-ticket/" + scannedText + "?event={{ $_GET['event'] }}",
+                success: function(response) {
+                    $('.reading').css('display', 'block');
+                    $('.used').css('display', 'none');
+                    $('.confirm').css('display', 'none');
+                    $('.unauthorized').css('display', 'none');
+                    setTimeout(function() {
+                        // alert(response['ticket']['customer_name'])
+                        if (response['status'] == 'accepted') {
+                            $('.reading').css('display', 'none');
+                            $('.confirm').css('display', 'block');
+                            $('.used').css('display', 'none');
+                            $('#name').html(response['ticket']['customer_name']);
+                            $('#document').html(response['ticket']['customer_cpf']);
+                            $('.unauthorized').css('display', 'none');
 
-    function provideVideo()
-    {
-        var n = navigator;
+                        }
+                        if (response['status'] == 'used') {
+                            $('.reading').css('display', 'none');
+                            $('.used').css('display', 'block');
+                            $('.confirm').css('display', 'none');
+                            $('#name').html(response['ticket']['customer_name']);
+                            $('#document').html(response['ticket']['customer_cpf']);
+                            $('.unauthorized').css('display', 'none');
+                        }
+                        if (response['status'] == 'unauthorized') {
+                            $('.reading').css('display', 'none');
+                            $('.used').css('display', 'none');
+                            $('.confirm').css('display', 'none');
+                            $('.unauthorized').css('display', 'block');
 
-        if (n.mediaDevices && n.mediaDevices.getUserMedia)
-        {
-          return n.mediaDevices.getUserMedia({
-            video: {
-              facingMode: "environment"
-            },
-            audio: false
-          });
-        }
+                        }
+                        if (response['status'] == 'erro') {
+                            $('.reading').css('display', 'none');
+                            $('.used').css('display', 'none');
+                            $('.confirm').css('display', 'none');
+                            $('.unauthorized').css('display', 'block');
 
-        return Promise.reject('Your browser does not support getUserMedia');
-    }
-
-    function provideVideoQQ()
-    {
-        return navigator.mediaDevices.enumerateDevices()
-        .then(function(devices) {
-            var exCameras = [];
-            devices.forEach(function(device) {
-            if (device.kind === 'videoinput') {
-              exCameras.push(device.deviceId)
-            }
-         });
-
-            return Promise.resolve(exCameras);
-        }).then(function(ids){
-            if(ids.length === 0)
-            {
-              return Promise.reject('Could not find a webcam');
-            }
-
-            return navigator.mediaDevices.getUserMedia({
-                video: {
-                  'optional': [{
-                    'sourceId': ids.length === 1 ? ids[0] : ids[1]//this way QQ browser opens the rear camera
-                    }]
+                        }
+                        console.log(response);
+                    }, 1000);
+                },
+                error: function(response) {
+                    console.log("error", response);
                 }
             });
-        });
-    }
 
-    //this function will be called when JsQRScanner is ready to use
-    function JsQRScannerReady()
-    {
-        //create a new scanner passing to it a callback function that will be invoked when
-        //the scanner succesfully scan a QR code
-        var jbScanner = new JsQRScanner(onQRCodeScanned);
-        //var jbScanner = new JsQRScanner(onQRCodeScanned, provideVideo);
-        //reduce the size of analyzed image to increase performance on mobile devices
-        jbScanner.setSnapImageMaxSize(300);
-    	var scannerParentElement = document.getElementById("scanner");
-    	if(scannerParentElement)
-    	{
-    	    //append the jbScanner to an existing DOM element
-    		jbScanner.appendTo(scannerParentElement);
-    	}
-    }
-  </script>
-  </body>
+        }
+
+        function provideVideo() {
+            var n = navigator;
+
+            if (n.mediaDevices && n.mediaDevices.getUserMedia) {
+                return n.mediaDevices.getUserMedia({
+                    video: {
+                        facingMode: "environment"
+                    },
+                    audio: false
+                });
+            }
+
+            return Promise.reject('Your browser does not support getUserMedia');
+        }
+
+        function provideVideoQQ() {
+            return navigator.mediaDevices.enumerateDevices()
+                .then(function(devices) {
+                    var exCameras = [];
+                    devices.forEach(function(device) {
+                        if (device.kind === 'videoinput') {
+                            exCameras.push(device.deviceId)
+                        }
+                    });
+
+                    return Promise.resolve(exCameras);
+                }).then(function(ids) {
+                    if (ids.length === 0) {
+                        return Promise.reject('Could not find a webcam');
+                    }
+
+                    return navigator.mediaDevices.getUserMedia({
+                        video: {
+                            'optional': [{
+                                'sourceId': ids.length === 1 ? ids[0] : ids[
+                                    1] //this way QQ browser opens the rear camera
+                            }]
+                        }
+                    });
+                });
+        }
+
+        //this function will be called when JsQRScanner is ready to use
+        function JsQRScannerReady() {
+            //create a new scanner passing to it a callback function that will be invoked when
+            //the scanner succesfully scan a QR code
+            var jbScanner = new JsQRScanner(onQRCodeScanned);
+            //var jbScanner = new JsQRScanner(onQRCodeScanned, provideVideo);
+            //reduce the size of analyzed image to increase performance on mobile devices
+            jbScanner.setSnapImageMaxSize(300);
+            var scannerParentElement = document.getElementById("scanner");
+            if (scannerParentElement) {
+                //append the jbScanner to an existing DOM element
+                jbScanner.appendTo(scannerParentElement);
+            }
+        }
+    </script>
+</body>
+
 </html>
