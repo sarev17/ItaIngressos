@@ -8,7 +8,6 @@
         background-color: #bbc0ff;
     }
 </style>
-<script type="text/javascript" src="instascan.min.js"></script>
     <div class="panel-content">
         <section>
             <div class="container">
@@ -96,6 +95,7 @@
                             <th scope="col">Preço atual</th>
                             <th scope="col">Total apurado</th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -107,6 +107,7 @@
                                 <td>R$ {{ number_format($event->tickets->where('paid', 1)->sum('price'), 2, ',', '.') }}
                                 </td>
                                 <td><a href="" class="btn btn-sm btn-primary">Ver detalhes</a></td>
+                                <td><a href="/checkin?event={{$event->id}}" class="btn btn-sm btn-primary"><i class="fa-sharp fa-solid fa-qrcode"></i> Validar ingressos</a></td>
                             </tr>
                         @endforeach
                     </tbody>

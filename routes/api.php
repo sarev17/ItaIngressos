@@ -23,6 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/search-user-email/{email}',[RegisterController::class,'searchEmail']);
 
-Route::get('ckeckin-ticket',[EventController::class,'checkInTicket']);
-
 Route::post('confirm-payment',[MercadoPagoController::class,'confirmPayment']);

@@ -141,21 +141,21 @@ class EventController extends Controller
         $data = ['event','commissions','total'];
         return view('ticketpay',compact($data));
     }
-    public function checkInTicket(Request $request){
+    public function checkInTicket($code){
         // dd($request->all());
-        $data = ['message','ticket'];
-        $message = '';
-        $ticket = Tickets::where('ticket_code',$request->ticket_code)->first();
+        $ticket = Tickets::where('ticket_code',$code)->first();
         if($ticket){
+            if($ticket->event_id != $_GET['event']){
+                return ['status'=>'unauthorized'];
+            }
             if($ticket->used){
-                $message = 'used';
-                dd('used');
+                return ['status'=>'used','ticket'=>$ticket];
             }else{
-                $message = 'valid';
-                return view('tickets.ckeckin.checkin-tickest',compact($data));
+                $ticket->update(['used'=>1]);
+                return ['status'=>'accepted','ticket'=>$ticket];
             }
         }else{
-            dd('invalido');
+            return ['status'=>'erro'];
         }
     }
 

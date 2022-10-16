@@ -61,3 +61,9 @@ Route::get('test',function(){
 });
 Route::get('send-code-email/{email}', [EventController::class, 'sendCode']);
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('checkin',function(){
+        return view('organizer.checkin');
+    });
+    Route::get('ckeckin-ticket/{code}',[EventController::class,'checkInTicket']);
+});

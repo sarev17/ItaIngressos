@@ -34,7 +34,7 @@ class MercadoPagoController extends Controller
                     $ticket->update(['paid' => 1]);
                     $code = $request->id . '-' . bin2hex(random_bytes(12));
                     if ($ticket != null) {
-                        $ticket->update(['ticket_url' => config('app.url') . '/api/ckeckin-ticket?ticket_code=' . $code, 'ticket_code' => $code]);
+                        $ticket->update(['ticket_code' => $code]);
                         sendTicketMail($ticket->id);
                     }
                 }

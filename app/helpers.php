@@ -172,7 +172,7 @@ function sendTicketMail($ticket_id)
         $ticket = Tickets::find($ticket_id);
         $image = QrCode::format('png')
             ->size(300)->errorCorrection('H')
-            ->generate($ticket->ticket_url);
+            ->generate($ticket->ticket_code);
         $output_file = '/public/tickets/' . $ticket->id . md5($ticket->invoice_id) . '.png';
         Storage::disk('local')->put($output_file, $image);
         $output_file = 'storage' . str_replace('/public', '', $output_file);
