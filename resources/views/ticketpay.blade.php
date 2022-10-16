@@ -108,7 +108,7 @@ use BaconQrCode\Encoder\QrCode;
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Enviamos um código de confirmação para o e-mail <b>sueze@gmail.com</b> digite-o
+                                    <p>Enviamos um código de confirmação para o e-mail <b><span id="send-email"></span></b> digite-o
                                         abaixo:</p>
                                     <input type="number" maxlength="4" minlength="4" type="text" placeholder="CODIGO"
                                         id="code">
@@ -136,6 +136,7 @@ use BaconQrCode\Encoder\QrCode;
         $('#btn-ticket').click(
             function() {
                 email = $('#email').val();
+                $('#send-email').text(email);
                 // alert(email);
                 $.ajax({
                     method: 'GET',
