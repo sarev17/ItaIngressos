@@ -7,6 +7,9 @@
     .bg-blue{
         background-color: #bbc0ff;
     }
+    td a{
+        width: 5rem;
+    }
 </style>
     <div class="panel-content">
         <section>
@@ -87,31 +90,33 @@
                 <center>
                     <h3>Dados dos seus eventos</h3>
                 </center>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nome do evento</th>
-                            <th scope="col">Ingressos vendidos</th>
-                            <th scope="col">Preço atual</th>
-                            <th scope="col">Total apurado</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($events as $event)
+                <section class="table-events">
+                    <table class="table table-striped">
+                        <thead>
                             <tr>
-                                <th scope="row">{{ $event->name }}</th>
-                                <td>{{ $event->tickets->where('paid', 1)->count() }}</td>
-                                <td>R$ {{ number_format($event->value_ticket, 2, ',', '.') }}</td>
-                                <td>R$ {{ number_format($event->tickets->where('paid', 1)->sum('price'), 2, ',', '.') }}
-                                </td>
-                                <td><a href="" class="btn btn-sm btn-primary">Ver detalhes</a></td>
-                                <td><a href="/checkin?event={{$event->id}}" class="btn btn-sm btn-primary"><i class="fa-sharp fa-solid fa-qrcode"></i> Validar ingressos</a></td>
+                                <th scope="col">Nome do evento</th>
+                                <th scope="col">Ingressos vendidos</th>
+                                <th scope="col">Preço atual</th>
+                                <th scope="col">Total apurado</th>
+                                <th></th>
+                                <th></th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($events as $event)
+                                <tr>
+                                    <th scope="row">{{ $event->name }}</th>
+                                    <td>{{ $event->tickets->where('paid', 1)->count() }}</td>
+                                    <td>R$ {{ number_format($event->value_ticket, 2, ',', '.') }}</td>
+                                    <td>R$ {{ number_format($event->tickets->where('paid', 1)->sum('price'), 2, ',', '.') }}
+                                    </td>
+                                    <td><a href="" class="btn btn-sm btn-primary">Ver detalhes</a></td>
+                                    <td><a href="/checkin?event={{$event->id}}" class="btn btn-sm btn-primary"><i class="fa-sharp fa-solid fa-qrcode"></i> Validar ingressos</a></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </section>
             </div>
         </section>
 

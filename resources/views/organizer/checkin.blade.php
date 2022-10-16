@@ -16,6 +16,7 @@
         video {
             max-height:350px;
 	        transform:scaleX(-1);
+            max-width: 330px;
         }
         #prev{
             transform: scaleX(-1);
@@ -185,9 +186,15 @@
                     });
                     Instascan.Camera.getCameras().then(function(cameras) {
                         if (cameras.length > 0) {
-                            scanner.start(cameras[1]);
-                            $('#cam').css('display','none');
-                            $('#preview-cam').css('opacity',1);
+                            if (cameras.length = 2) {
+                                scanner.start(cameras[1]);
+                                $('#cam').css('display','none');
+                                $('#preview-cam').css('opacity',1);
+                            }else{
+                                scanner.start(cameras[0]);
+                                $('#cam').css('display','none');
+                                $('#preview-cam').css('opacity',1);
+                            }
 
                         } else {
                             alert('Não há cameras disponíveis! Atualize a página')
