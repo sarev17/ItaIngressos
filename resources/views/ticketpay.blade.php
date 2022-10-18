@@ -57,6 +57,9 @@ use BaconQrCode\Encoder\QrCode;
             font-size: 13pt;
             height: 30px;
         }
+        .pad-panel{
+            padding: 20px;
+        }
     </style>
     <div>
         <section class=" pad-panel flex-m center">
@@ -77,6 +80,7 @@ use BaconQrCode\Encoder\QrCode;
                     @csrf
                     <br>
                     <h5>Dados para gerar o Ingresso</h5>
+                    <br>
                     <input type="hidden" value="{{ $event->id }}" name="event_id">
                     <input required type="text" name="customer_name" placeholder="Nome">
                     <input required type="email" name="customer_email" placeholder="Email" id="email">

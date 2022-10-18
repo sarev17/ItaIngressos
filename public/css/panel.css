@@ -15,6 +15,12 @@ a{
 .center{
     justify-content: center;
 }
+.section-title{
+    font-size: 17pt;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #286bcf;
+}
 
 .event-card{
     margin: 14px;
@@ -22,15 +28,17 @@ a{
     flex-direction: column;
     align-items: center;
     text-align: center;
-    max-width: 193px;
-    height: 420px;
+    max-width: 200px;
+    /* height: 420px; */
+    position: relative;
 }
 .event-card a{
 
 }
 .event-card img{
-    height: 15rem;
-    width: 12rem;
+    height: 18rem;
+    width: 13rem;
+    /* border-radius: 15px; */
 }
 .panel-cards{
     display: flex;
@@ -40,7 +48,7 @@ a{
 }
 
 .search-bar{
-    margin: 0 20px;
+    margin-bottom: 30px;
 }
 .search-bar label{
     font-size: 1.2rem;

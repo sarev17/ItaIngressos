@@ -6,50 +6,133 @@
 @extends('layouts.app')
 @section('content')
     <style>
-        .message{
+        .message {
             display: flex;
             justify-content: center;
             width: 100%;
             margin-top: 30px;
         }
-        .panel-cards{
+
+        .panel-cards {
             display: flex;
             flex-wrap: wrap;
         }
-        @media(max-width:420px){
-            .event-card img{
+
+        /* .panel-cards img:hover{
+                        height: 14.3rem;
+                        width: 12.3rem;
+
+                    } */
+        .event {
+            position: relative;
+        }
+
+        .event h5 {
+            position: absolute;
+            top: 37%;
+            left: 11px;
+            color: white;
+        }
+
+        .date {
+            position: absolute;
+            z-index: 1;
+            bottom: 9px;
+            /* width: 100%; */
+            left: 6px;
+            color: white;
+            /* border: solid 1px; */
+            padding: 1px 12px;
+            border-radius: 0 12px;
+            border: solid 1px;
+        }
+
+        .value {
+            position: absolute;
+            left: 14px;
+            top: 11px;
+            color: white;
+            background-color: #066a06;
+            padding: 2px 9px;
+        }
+
+        .location {
+            position: absolute;
+            z-index: 1;
+            color: white;
+            left: 13px;
+            top: 59%;
+        }
+
+        @media(max-width:420px) {
+            span{
+                display: block;
+            }
+
+            .search-bar input{
+                width: 80%;
+            }
+            .event-card img {
                 width: 10rem;
             }
-            .event-card{
-                max-width: 145px;
+
+            .event-card {
+                max-width: 158px;
             }
-            .event-card a{
+
+            .event-card a {
                 width: 100%;
             }
+
         }
+
+        .data-card {
+            opacity: 0;
+        }
+        .event-card:hover .data-card{
+            opacity: 1;
+            transition-duration: 0.5s;
+        }
+        .event-card:hover img{
+            filter: brightness(0.3);
+            object-fit: cover;
+            transform: scale(1.03);
+            transition-duration: 0.5s;
+        }
+
     </style>
     <div>
-        <header class="flex-m center"><h1>Eventos Disponíveis</h1></header>
-        <br>
-        {{-- @include('ajax.searchbar.events-search') --}}
+        @include('ajax.searchbar.events-search')
+        <header class="flex-m center section-title"><span>Eventos Disponíveis</span></header>
         <br>
         <section class="panel-cards">
-            @if($events->count())
-            @foreach ($events as $event )
-                <div class="event-card">
-                    <img src="{{$event->poster}}" alt="">
-                    <br>
-                    <a class="btn btn-primary" href="{{route('event-detail',['id'=>$event->id])}}">Comprar</a>
-                    <br>
-                    <h5>{{$event->name}}</h5>
-                    <span>{{$event->city}} - {{$event->uf}}</span>
-                    {{-- <span>Local: {{$event->location}}</span> --}}
-                    <span>Entrada: R$ {{number_format($event->value_ticket,2,',','.')}}</span>
-                    <span><b>{{strftime('%d de %B',strtotime($event->day))}} as  {{$event->start}}</b></span>
-                </div>
-            @endforeach
+            @if ($events->count())
+                @foreach ($events as $event)
+                    <div class="event-card">
+                        <a href="{{ route('event-detail', ['id' => $event->id]) }}">
+                            <div class="event">
+                                <img src="{{ $event->poster }}" alt="">
+                                <div class="data-card">
+                                    <h5>{{ $event->name }}</h5>
+                                    <span class="location"><i class="fa-solid fa-map-location-dot"></i> {{ $event->city }} -
+                                        {{ $event->uf }}</span>
+                                    <span class="value"> <i class="fa-solid fa-cart-shopping"></i> R$
+                                        {{ number_format($event->value_ticket, 2, ',', '.') }}</span>
+                                    <span class="date"><i class="fa-solid fa-calendar"></i>
+                                        {{ strftime('%d/%m/%Y', strtotime($event->day)) }} <i class="fa-solid fa-clock"></i>{{$event->start}}</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        {{-- <a class="btn btn-primary" href="{{route('event-detail',['id'=>$event->id])}}">Comprar</a> --}}
+                        {{-- <br> --}}
+                        {{-- <span>Local: {{$event->location}}</span> --}}
+                    </div>
+                @endforeach
             @else
-                <div class="message"><h5>Não há eventos disponíveis</h5></div>
+                <div class="message">
+                    <h5>Não há eventos disponíveis</h5>
+                </div>
             @endif
         </section>
     </div>
