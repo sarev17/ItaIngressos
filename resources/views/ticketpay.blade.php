@@ -60,6 +60,20 @@ use BaconQrCode\Encoder\QrCode;
         .pad-panel{
             padding: 20px;
         }
+        .inputs-code input{
+            width: 4rem !important;
+            height: 5rem !important;
+            display: inline !important;
+            text-align: center;
+            font-size: 2rem !important;
+        }
+        .inputs-code input[type=number]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+
+}
+        #code{
+            visibility: hidden;
+        }
     </style>
     <div>
         <section class=" pad-panel flex-m center">
@@ -114,8 +128,15 @@ use BaconQrCode\Encoder\QrCode;
                                 <div class="modal-body">
                                     <p>Enviamos um código de confirmação para o e-mail <b><span id="send-email"></span></b> digite-o
                                         abaixo:</p>
+                                    <div class="inputs-code">
+                                        <input type="number" class="i-group" id="i1">
+                                        <input type="number" class="i-group" id="i2">
+                                        <input type="number" class="i-group" id="i3">
+                                        <input type="number" class="i-group" id="i4">
+                                    </div>
                                     <input type="number" maxlength="4" minlength="4" type="text" placeholder="CODIGO"
                                         id="code">
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -154,8 +175,30 @@ use BaconQrCode\Encoder\QrCode;
                 });
             }
         );
-        $('#code').keyup(function() {
-            if ($(this).val().length == 4) {
+        $('.i-group').keyup(function(){
+            $('#code').val($('#i1').val()+$('#i2').val()+$('#i3').val()+$('#i4').val());
+        });
+        $('#i1').keyup(function(){
+            if(this.value !== ''){
+                $('#i2').focus();
+            }
+        });
+        $('#i2').keyup(function(){
+            if(this.value !== ''){
+                $('#i3').focus();
+            }else{
+                $('#i1').focus();
+            }
+        });
+        $('#i3').keyup(function(){
+            if(this.value !== ''){
+                $('#i4').focus();
+            }else{
+                $('#i2').focus();
+            }
+        });
+        $('#i4').keyup(function(){
+            if(this.value !== ''){
                 if (code == null) {
                     alert("ajeita isso depois!");
                     return 0;
@@ -164,6 +207,13 @@ use BaconQrCode\Encoder\QrCode;
                 } else {
                     alert("código invalido")
                 }
+            }else{
+                $('#i3').focus();
+            }
+        });
+        $('#code').change(function() {
+            if ($(this).val().length == 4) {
+
             }
         });
     </script>

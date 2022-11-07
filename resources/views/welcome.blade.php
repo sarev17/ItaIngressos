@@ -102,7 +102,7 @@
 
     </style>
     <div>
-        @include('ajax.searchbar.events-search')
+        <center>@include('ajax.searchbar.events-search')</center>
         <header class="flex-m center section-title"><span>Eventos Disponíveis</span></header>
         <br>
         <section class="panel-cards">

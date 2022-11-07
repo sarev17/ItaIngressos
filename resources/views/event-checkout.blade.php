@@ -41,13 +41,19 @@ use BaconQrCode\Encoder\QrCode;
             font-size: 12pt;
         }
         #time{
-            display: flex;
+            /* display: flex; */
             align-items: center;
             justify-content: center;
         }
         #time svg{
             margin-left: 15px;
             font-size: 14pt;
+        }
+        #timer{
+            visibility: hidden;
+        }
+        #copy:hover{
+            /* background-color: #1d459f; */
         }
     </style>
     <div>
@@ -136,6 +142,10 @@ use BaconQrCode\Encoder\QrCode;
             document.body.removeChild(input);
             $('#copy').text('Código PIX Copiado!');
             $('#copy').css('background-color','green')
+            setInterval(function() {
+                $('#copy').text('Copiar código PIX');
+                $('#copy').css('background-color','#0B5ED7')
+            }, 3000);
 
     }
     </script>
