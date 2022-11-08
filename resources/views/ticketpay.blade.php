@@ -85,10 +85,7 @@ use BaconQrCode\Encoder\QrCode;
                 <span>Local: {{ $event->location }} {{ $event->city }}-{{ $event->uf }}</span>
                 <span>Data: {{ strftime('%d de %B', strtotime($event->day)) }} as {{ $event->start }}</span>
                 <span>Valor: R$
-                    {{ number_format($event->value_ticket, 2, ',', '.') .
-                        ' + R$ ' .
-                        number_format($commissions, 2, ',', '.') .
-                        ' de taxa de serviço' }}
+                    {{ number_format($event->value_ticket+$commissions, 2, ',', '.')}}
                 </span>
                 <form id="data-payer" action="{{ route('tickets.store') }}" method="post">
                     @csrf
@@ -129,10 +126,10 @@ use BaconQrCode\Encoder\QrCode;
                                     <p>Enviamos um código de confirmação para o e-mail <b><span id="send-email"></span></b> digite-o
                                         abaixo:</p>
                                     <div class="inputs-code">
-                                        <input type="number" class="i-group" id="i1">
-                                        <input type="number" class="i-group" id="i2">
-                                        <input type="number" class="i-group" id="i3">
-                                        <input type="number" class="i-group" id="i4">
+                                        <input type="number" maxlength="1" class="i-group" id="i1">
+                                        <input type="number" maxlength="1" class="i-group" id="i2">
+                                        <input type="number" maxlength="1" class="i-group" id="i3">
+                                        <input type="number" maxlength="1" class="i-group" id="i4">
                                     </div>
                                     <input type="number" maxlength="4" minlength="4" type="text" placeholder="CODIGO"
                                         id="code">

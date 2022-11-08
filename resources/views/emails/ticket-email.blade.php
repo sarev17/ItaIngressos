@@ -61,6 +61,7 @@
                 <span>{{Carbon::create($event->day)->format("d/m/Y")}} ás {{$event->start}}h</span>
                 <br>
                 <small>Apresente esse QRCODE na entrada do evento.</small><br>
+                <small>Esse código é de uso único, não comnpartilhe com ninguém.</small>
                 <picture>
                     <img src="<?php echo $message->embed($png); ?>">
                 </picture>
