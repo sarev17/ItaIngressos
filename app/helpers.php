@@ -212,7 +212,6 @@ function createPayment(Events $event, $payer, $total)
               'id' => 'IG'.Carbon::now()->timestamp,
               'title' => 'Venda de ingresso',
               'description' => $event->name.'-'.$event->day,
-            //   'picture_url' => 'https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png',
               'category_id' => 'entertainment',
               'quantity' => 1,
               'unit_price' => $total,
@@ -222,7 +221,6 @@ function createPayment(Events $event, $payer, $total)
           array (
             'first_name'=> $payer['first_name'],
             'last_name' => $payer['last_name'],
-            'email'     => $payer['email'],
           ),
           'shipments' =>
           array (
@@ -234,10 +232,7 @@ function createPayment(Events $event, $payer, $total)
               'street_name' => 'R. Joaquim Ribeiro',
               'street_number' => 220,
             ),
-          ),
-          'barcode' =>
-          array (
-          ),
+          )
         ),
         'description' => 'Compra de ingresso',
         'external_reference' => 'IG'.Carbon::now()->timestamp,
@@ -249,9 +244,9 @@ function createPayment(Events $event, $payer, $total)
         array (
           'entity_type' => 'individual',
           'type' => 'customer',
-          'identification' =>
-          array (
-          ),
+          'email' => $payer['email'],
+          'first_name' => $payer['first_name'],
+          'last_name' => $payer['last_name'],
         ),
         'payment_method_id' => 'pix',
         'transaction_amount' => $total,
