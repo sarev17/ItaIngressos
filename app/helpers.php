@@ -185,7 +185,7 @@ function sendTicketMail($ticket_id)
     }
 }
 
-function createPayment(Events $event, $payer, $total, Tickets $ticket)
+function createPayment(Events $event, $payer, $total)
 {
 
     // dd(config('app.url').'/api/confirm-payment');
@@ -209,12 +209,12 @@ function createPayment(Events $event, $payer, $total, Tickets $ticket)
           array (
             0 =>
             array (
-              'id' => 'PR00'.$ticket->id,
+              'id' => 'IG'.Carbon::now()->timestamp,
               'title' => 'Venda de ingresso',
               'description' => $event->name.'-'.$event->day,
             //   'picture_url' => 'https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png',
               'category_id' => 'entertainment',
-              'quantity' => $ticket->qty,
+              'quantity' => 1,
               'unit_price' => $total,
             ),
           ),
@@ -240,7 +240,7 @@ function createPayment(Events $event, $payer, $total, Tickets $ticket)
           ),
         ),
         'description' => 'Compra de ingresso',
-        'external_reference' => 'PR00'.$ticket->id,
+        'external_reference' => 'IG'.Carbon::now()->timestamp,
         'installments' => 1,
         'metadata' =>
         array (

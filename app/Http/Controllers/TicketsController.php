@@ -75,7 +75,7 @@ class TicketsController extends Controller
             ->where('paid',0)->where('event_id',$event->id)->first();
         // dd($ticket);
         if($ticket == null){
-            $payment = createPayment($event,$payer,$total,$ticket);
+            $payment = createPayment($event,$payer,$total);
             // dd($payment);
             if(isset($payment->message)){
                 $error = translateMesagesErrors($payment->message);
