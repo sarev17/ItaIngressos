@@ -39,6 +39,9 @@
     <body>
     @include('sweetalert::alert')
 
+        @php
+            setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+        @endphp
         <div id="app">
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container">
@@ -50,6 +53,9 @@
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        @if (Auth::check())
+                            <a href="organizer/panel">Painel</a>
+                        @endif
                         <!-- Left Side Of Navbar -->
                         <ul class="navbar-nav me-auto">
 
@@ -59,7 +65,7 @@
                         <ul class="navbar-nav ms-auto">
                             <!-- Authentication Links -->
                            @guest
-                                 @if (Route::has('login'))
+                                 {{-- @if (Route::has('login'))
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                     </li>
@@ -69,9 +75,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="register-organizer">{{ __('Cadastro') }}</a>
                                     </li>
-                                @endif
+                                @endif --}}
                             @else
-                                <li class="nav-item dropdown">
+                                {{-- <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="/organizer/panel" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }}
                                     </a>
@@ -87,7 +93,7 @@
                                             @csrf
                                         </form>
                                     </div>
-                                </li>
+                                </li> --}}
                             @endguest
                         </ul>
                     </div>
@@ -108,9 +114,9 @@
                 </div>
 
                 <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                <li class="ms-3"><a class="text-muted" href="#"><i class="fa-brands fa-facebook"></i></a></li>
-                <li class="ms-3"><a class="text-muted" href="#"><i class="fa-brands fa-instagram"></i></a></li>
-                <li class="ms-3"><a class="text-muted" href="#"><i class="fa-brands fa-whatsapp"></i></a></li>
+                {{-- <li class="ms-3"><a class="text-muted" href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                <li class="ms-3"><a class="text-muted" href="#"><i class="fa-brands fa-instagram"></i></a></li> --}}
+                <li class="ms-3"><a target="_blank" class="text-muted" href="https://wa.me/5585989397098?text=Ol%C3%A1%2C+preciso+de+ajuda+para+comprar+no+Itaingressos%21"><i class="fa-brands fa-whatsapp"></i></a></li>
                 </ul>
             </footer>
         </div>

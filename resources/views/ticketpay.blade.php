@@ -200,7 +200,7 @@ use BaconQrCode\Encoder\QrCode;
         $('#i4').keyup(function(){
             if(this.value !== ''){
                 if (code == null) {
-                    alert("ajeita isso depois!");
+                    alert("Preencha os dados corretamente");
                     return 0;
                 } else if (code == $('#code').val()) {
                     $('#data-payer').submit();
