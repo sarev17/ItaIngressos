@@ -71,8 +71,7 @@ use BaconQrCode\Encoder\QrCode;
                                 <span></span>
                             </section>
                             <span>
-                                Ingresso: R$ {{ number_format($event->value_ticket, 2, ',', '.') }}
-                                + R$ {{ number_format($commissions, 2, ',', '.') }} de taxa de serviço
+                                Ingresso: R$ {{ number_format(($event->value_ticket+$commissions), 2, ',', '.') }}
                             </span>
                             <br>
                             <div>

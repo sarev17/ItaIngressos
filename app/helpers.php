@@ -185,25 +185,80 @@ function sendTicketMail($ticket_id)
     }
 }
 
-function createPayment(Events $event, $payer, $total)
+function createPayment(Events $event, $payer, $total, Tickets $ticket)
 {
 
     // dd(config('app.url').'/api/confirm-payment');
-    $payload = array(
-        'description' => 'Compra de Ingresso',
-        'installments' => 1,
-        'payer' => array(
-            'email' => $payer['email'],
-            'first_name' => $payer['first_name'],
+    // $payload = array(
+    //     'description' => 'Compra de Ingresso',
+    //     'installments' => 1,
+    //     'payer' => array(
+    //         'email' => $payer['email'],
+    //         'first_name' => $payer['first_name'],
+    //         'last_name' => $payer['last_name'],
+    //     ),
+    //     'notification_url' => config('app.webhook'),
+    //     'payment_method_id' => 'pix',
+    //     'binary_mode' =>true,
+    //     'transaction_amount'=>$total
+    // );
+    $payload = array (
+        'additional_info' =>
+        array (
+          'items' =>
+          array (
+            0 =>
+            array (
+              'id' => 'PR00'.$ticket->id,
+              'title' => 'Venda de ingresso',
+              'description' => $event->name.'-'.$event->day,
+            //   'picture_url' => 'https://http2.mlstatic.com/resources/frontend/statics/growth-sellers-landings/device-mlb-point-i_medium@2x.png',
+              'category_id' => 'entertainment',
+              'quantity' => $ticket->qty,
+              'unit_price' => $total,
+            ),
+          ),
+          'payer' =>
+          array (
+            'first_name'=> $payer['first_name'],
             'last_name' => $payer['last_name'],
+            'email'     => $payer['email'],
+          ),
+          'shipments' =>
+          array (
+            'receiver_address' =>
+            array (
+              'zip_code' => '62011-020',
+              'state_name' => 'Ceará',
+              'city_name' => 'Sobral',
+              'street_name' => 'R. Joaquim Ribeiro',
+              'street_number' => 220,
+            ),
+          ),
+          'barcode' =>
+          array (
+          ),
         ),
-        'notification_url' => config('app.webhook'),
-        // 'notification_url' => 'https://7d11-2804-29b8-5009-3cbc-bc17-f7b5-acd8-2f07.ngrok.io',
+        'description' => 'Compra de ingresso',
+        'external_reference' => 'PR00'.$ticket->id,
+        'installments' => 1,
+        'metadata' =>
+        array (
+        ),
+        'payer' =>
+        array (
+          'entity_type' => 'individual',
+          'type' => 'customer',
+          'identification' =>
+          array (
+          ),
+        ),
         'payment_method_id' => 'pix',
-        // 'transaction_amount' => 0.10,
+        'transaction_amount' => $total,
+        'notification_url' => config('app.webhook'),
         'binary_mode' =>true,
-        'transaction_amount'=>$total
     );
+    // dd(json_encode($payload));
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, 'https://api.mercadopago.com/v1/payments');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('tickets', function(Blueprint $table) {
             $table->double('price')->after('used');
+            $table->integer('qty')->after('used')->default(1);
         });
     }
 
@@ -27,6 +28,7 @@ return new class extends Migration
     {
         Schema::table('tickets', function(Blueprint $table) {
             $table->dropColumn('price');
+            $table->dropColumn('qty');
         });
     }
 };
