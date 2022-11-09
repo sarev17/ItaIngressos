@@ -65,6 +65,15 @@
         }
 
         @media(max-width:420px) {
+            .event-card img{
+                filter: brightness(0.3) !important;
+                object-fit: cover !important;
+                transform: scale(1.03) !important;
+                transition-duration: 0.5s !important;
+            }
+            .data-card{
+                opacity: 1 !important;
+            }
             span{
                 display: block;
             }
