@@ -4,6 +4,11 @@
     label{
         display: block;
     }
+    @media(max-width:420px){
+        .form-register{
+            max-width: 100%
+        }
+    }
 </style>
 
     <div class="flex-m center">

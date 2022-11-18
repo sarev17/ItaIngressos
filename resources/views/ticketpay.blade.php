@@ -85,7 +85,7 @@ use BaconQrCode\Encoder\QrCode;
                 <span>Local: {{ $event->location }} {{ $event->city }}-{{ $event->uf }}</span>
                 <span>Data: {{ strftime('%d de %B', strtotime($event->day)) }} as {{ $event->start }}</span>
                 <span>Valor: R$
-                    {{ number_format($event->value_ticket+$commissions, 2, ',', '.')}}
+                    {{ number_format($event->value_ticket, 2, ',', '.')}} + {{number_format($commissions,2,',','.')}} de taxa de serviço
                 </span>
                 <form id="data-payer" action="{{ route('tickets.store') }}" method="post">
                     @csrf

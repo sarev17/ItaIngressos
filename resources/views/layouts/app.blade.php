@@ -44,11 +44,17 @@
         }
 
         .login a {
-            background-color: #00007a;
-            color: white;
-            padding: 7px;
-            border-radius: 9px;
+            color: black;
             font-size: 1rem;
+        }
+        .login{
+            display: flex;
+        }
+        .login form input{
+            margin-left: 10px;
+            background-color: unset;
+            border: unset;
+            color: rgb(207, 1, 1)
         }
     </style>
 </head>

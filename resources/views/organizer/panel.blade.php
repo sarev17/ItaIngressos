@@ -16,9 +16,9 @@
             <div class="container">
                 <section class="btn-event" style="text-align: end;">
                     <nav class="action-events">
-                        <a class="btn btn-primary" href="{{ route('event.create') }}">
+                        <a class="btn btn-primary btn-sm" href="{{ route('event.create') }}">
                             <i class="fa-solid fa-calendar-plus"></i>
-                            <span>Cadastrar Evento</span>
+                            <span style="font-size: 10pt">Cadastrar Evento</span>
                         </a>
                     </nav>
                 </section>
@@ -110,7 +110,7 @@
                                     <td>R$ {{ number_format($event->value_ticket, 2, ',', '.') }}</td>
                                     <td>R$ {{ number_format($event->tickets->where('paid', 1)->sum('price'), 2, ',', '.') }}
                                     </td>
-                                    <td><a href="" class="btn btn-sm btn-primary">Ver detalhes</a></td>
+                                    {{-- <td><a href="" class="btn btn-sm btn-primary">Ver detalhes</a></td> --}}
                                     <td><a href="/checkin?event={{$event->id}}" class="btn btn-sm btn-primary"><i class="fa-sharp fa-solid fa-qrcode"></i> Validar ingressos</a></td>
                                 </tr>
                             @endforeach

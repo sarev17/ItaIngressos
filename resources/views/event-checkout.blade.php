@@ -66,12 +66,13 @@ use BaconQrCode\Encoder\QrCode;
                         <center>
                             <section><span><b>{{ $event->name }}</b></span>
                                 <span>Local: {{ $event->location }} {{ $event->city }}-{{ $event->uf }}</span>
-                                <span>Data: {{ strftime('%d de %B', strtotime($event->day)) }} as {{ $event->start }}</span>
+                                <span>Data: {{ strftime('%d/%m/%Y', strtotime($event->day)) }} as {{ $event->start }}</span>
                                 <span>Comprador: {{ $ticket->customer_name }} ({{ $ticket->customer_email }})</span>
                                 <span></span>
                             </section>
                             <span>
-                                Ingresso: R$ {{ number_format(($event->value_ticket+$commissions), 2, ',', '.') }}
+                                Ingresso: R$ {{ number_format(($event->value_ticket), 2, ',', '.') }} + R$
+                                {{ number_format(($commissions), 2, ',', '.') }} de taxa de serviço
                             </span>
                             <br>
                             <div>
