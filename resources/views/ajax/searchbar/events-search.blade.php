@@ -1,14 +1,23 @@
 <style>
-    .fa-magnifying-glass{
-        margin-left: -90px;
-        color: #797775;
+    .lupe{
+        color: rgb(173, 170, 170) !important;
     }
+    .search-bar{
+        position: relative;
+        display: flex;
+    align-items: center;
+    }
+    .search-bar button{
+        position: absolute;
+        right: 0;
+    }
+
 </style>
 <section class="search-bar">
     {{-- <form action="" method="get"> --}}
         {{-- <label for="search">Buscar Evento</label> --}}
         <input placeholder="Buscar por nome ou cidade" type="text" name="event" id="search-event">
-        <button type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button type="button"><i class="lupe fa-solid fa-magnifying-glass"></i></button>
     {{-- </form> --}}
 </section>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>

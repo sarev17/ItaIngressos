@@ -3,9 +3,10 @@
     setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
     date_default_timezone_set('America/Sao_Paulo');
 @endphp
-@extends('layouts.app')
+@extends('layouts.home')
 @section('content')
     <style>
+
         .message {
             display: flex;
             justify-content: center;
@@ -109,9 +110,12 @@
             transition-duration: 0.5s;
         }
 
+        .content header{
+            margin-top: 5rem;
+        }
     </style>
-    <div>
-        <center>@include('ajax.searchbar.events-search')</center>
+    <div class="content">
+        {{-- <center>@include('ajax.searchbar.events-search')</center> --}}
         <header class="flex-m center section-title"><span>Eventos Disponíveis</span></header>
         <br>
         <section class="panel-cards">

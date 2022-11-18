@@ -101,6 +101,19 @@
             transition: opacity .3s linear;
 
         }
+        @media(max-width:420px){
+            .options{
+                display: none;
+            }
+            .navbar{
+                align-items: center;
+                justify-content: center;
+                row-gap: 10px;
+            }
+            .content header{
+                margin-top: unset !important;
+            }
+        }
     </style>
 </head>
 
@@ -153,7 +166,26 @@
                     </a>
                 </picture>
             </header>
-
+            <div class="options">
+                <div id="opt-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Buscar</span>
+                    <div class="modalSearch">
+                        <label for="">O que você procura?</label>
+                        @include('ajax.searchbar.events-search')
+                    </div>
+                </div>
+                <div>
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Seu Local</span>
+                </div>
+                <div>
+                    <a style="color: unset;font-size:unset" href="https://wa.me/5585989397098?text=Ol%C3%A1%2C+preciso+de+ajuda+para+comprar+no+Itaingressos%21">
+                        <i class="fa-regular fa-circle-question"></i>
+                        <span>Atendimento</span>
+                    </a>
+                </div>
+            </div>
             <div class="login">
                 @if (Auth::check())
                     <a href="/organizer/panel"><i class="fa-solid fa-user"></i> Seu painel</a>
