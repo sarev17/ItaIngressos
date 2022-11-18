@@ -3,7 +3,7 @@
     setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
     date_default_timezone_set('America/Sao_Paulo');
 @endphp
-@extends('layouts.home')
+@extends('layouts.app')
 @section('content')
     <style>
 
@@ -113,6 +113,7 @@
         .content header{
             margin-top: 5rem;
         }
+        @med
     </style>
     <div class="content">
         {{-- <center>@include('ajax.searchbar.events-search')</center> --}}
