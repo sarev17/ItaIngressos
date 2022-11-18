@@ -74,6 +74,10 @@ use BaconQrCode\Encoder\QrCode;
         #code{
             visibility: hidden;
         }
+        .info-event{
+            background-color: #d4d4df;
+    padding: 0.6rem;
+        }
     </style>
     <div>
         <section class=" pad-panel flex-m center">
@@ -86,6 +90,9 @@ use BaconQrCode\Encoder\QrCode;
                 <span>Data: {{ strftime('%d de %B', strtotime($event->day)) }} as {{ $event->start }}</span>
                 <span>Valor: R$
                     {{ number_format($event->value_ticket, 2, ',', '.')}} + {{number_format($commissions,2,',','.')}} de taxa de serviço
+                </span>
+                <span class="info-event">
+                    {{$event->info}}
                 </span>
                 <form id="data-payer" action="{{ route('tickets.store') }}" method="post">
                     @csrf
