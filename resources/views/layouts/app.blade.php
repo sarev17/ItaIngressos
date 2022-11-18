@@ -56,10 +56,11 @@
             border: unset;
             color: rgb(207, 1, 1)
         }
-        .navbar{
-            display: flex;
-            justify-content: space-between;
+        .navbarmenu{
+            display: flex !important;
+            justify-content: space-between !important;
             padding: 20px 3rem;
+            align-items: center;
         }
         .options{
             display: flex;
@@ -111,7 +112,7 @@
         setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
     @endphp
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbarmenu navbar-expand-md navbar-light bg-white shadow-sm">
             {{-- <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img id="logo" src="{{ asset('img/logo.png') }}" alt="" width="15rem">

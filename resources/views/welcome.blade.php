@@ -111,9 +111,8 @@
         }
 
         .content header{
-            margin-top: 5rem;
+            /* margin-top: 5rem; */
         }
-        @med
     </style>
     <div class="content">
         {{-- <center>@include('ajax.searchbar.events-search')</center> --}}
