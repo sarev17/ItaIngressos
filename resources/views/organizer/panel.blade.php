@@ -8,7 +8,12 @@
         background-color: #bbc0ff;
     }
     td a{
-        width: 5rem;
+        width: fit-content;
+    }
+    #chave_pix{
+        width: 100%;
+        height: 2rem;
+        padding: 1rem;
     }
 </style>
     <div class="panel-content">
@@ -23,29 +28,29 @@
                     </nav>
                 </section>
                 <br>
-                {{-- <section class="data-panel">
+                <section class="data-panel">
                     <div class="cards">
                         <div class="card bg-green">
                             <section class="">
                                <div>
                                    <span class="big">Vendas</span>
-                                    <span class="info"><b>R$ 1.542,50</b></span>
+                                    <span class="info"><b>R$ {{number_format($tickets->sum('price'),2,',','.')}}</b></span>
                                </div>
                                <div>
                                 <i class="fa-solid fa-circle-dollar-to-slot"></i>
                                </div>
                             </section>
                             <footer>
-                                <span>REF: 01/08 á 10/08 de 2022</span>
+                                <span>REF: {{date('m/Y',strtotime($tickets[0]->updated_at))}} á {{date('m/Y',strtotime('today'))}}</span>
                             </footer>
                         </div>
                         <div class="card bg-blue">
                             <section class="">
                                <div>
                                    <span class="big">Recebido</span>
-                                    <span class="info">R$ 875,00</span>
+                                    <span class="info">R$ {{number_format($withdraws->sum('withdraw_value'),2,',','.')}}</span>
                                     <br>
-                                    <span>A enviar: <b>R$ 356,00</b></span>
+                                    <span>A enviar: <b>R$ {{number_format($tickets->sum('price')-$withdraws->sum('withdraw_value'),2,',','.')}}</b></span>
                                </div>
                                <div>
                                 <i class="fa-sharp fa-solid fa-building-columns"></i>
@@ -60,15 +65,15 @@
                                <div>
                                     <span class="big">Eventos</span>
                                     <br>
-                                    <span><b>Disponíveis: </b>2</span>
-                                    <span><b>Vendas: </b>120</span>
+                                    <span><b>Disponíveis: </b>{{$events->count()}}</span>
+                                    <span><b>Vendas: </b>{{$tickets->count()}}</span>
                                </div>
                                <div>
                                 <i class="fa-solid fa-user-group"></i>
                                </div>
                             </section>
                             <footer>
-                                <span>REF: 01/08 á 10/08 de 2022</span>
+                                <span>REF: {{date('m/Y',strtotime($events[0]->updated_at))}} à {{date('m/Y',strtotime('today'))}}</span>
                             </footer>
                         </div>
                         <div class="card">
@@ -76,16 +81,16 @@
                                <div>
                                     <span class="big">Meus Dados</span>
                                     <br>
-                                    <span>Nome: <b>Andre Veras</b></span>
-                                    <span>Chave PIX: <b>88981700168</b></span>
+                                    <span>Nome: <b>{{Auth::user()->name}}</b></span>
+                                    <span>Chave PIX: <b>{{Auth::user()->pix}}</b></span>
                                </div>
                             </section>
                             <footer>
-                                <a href="">Editar</a>
+                                <a data-toggle="modal" data-target="#exampleModal" href="">Editar</a>
                             </footer>
                         </div>
                     </div>
-                </section> --}}
+                </section>
                 <br><br>
                 <center>
                     <h3>Dados dos seus eventos</h3>
@@ -119,7 +124,31 @@
                 </section>
             </div>
         </section>
-
-
     </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Atualização</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="updatePix" action="/update-pix" method="post">
+            @csrf
+            <label for="pix">Insira sua chave PIX</label>
+            <input type="text" name="pix" id="chave_pix">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button form="updatePix" type="submit" class="btn btn-primary">Atualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection

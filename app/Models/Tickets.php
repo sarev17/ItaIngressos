@@ -34,4 +34,13 @@ class Tickets extends Model
     {
         return $this->hasOne(Events::class, 'id', 'event_id');
     }
+    /**
+     * Get the user associated with the Tickets
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class, $this->event->user_id, 'id');
+    }
 }

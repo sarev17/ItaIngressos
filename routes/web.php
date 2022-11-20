@@ -7,7 +7,10 @@ use App\Http\Controllers\Payment\IuguActionsController;
 use App\Http\Controllers\Payments\MercadoPagoController;
 use App\Http\Controllers\Register\RegisterController;
 use App\Http\Controllers\TicketsController;
+use App\Models\User;
+use Illuminate\Http\Client\Request as ClientRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -66,4 +69,6 @@ Route::middleware(['auth'])->group(function () {
         return view('organizer.checkin');
     });
     Route::get('ckeckin-ticket/{code}',[EventController::class,'checkInTicket']);
+    Route::post('update-pix',[OrganizerController::class,'updatePix']);
 });
+
