@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('content')
 <style>
+    .table-events{
+        overflow-x: auto;
+    }
     .bg-green{
         background-color: #78cb78;
     }
@@ -14,6 +17,13 @@
         width: 100%;
         height: 2rem;
         padding: 1rem;
+    }
+    @media(max-width:420px){
+        .cards{
+            display: flex;
+            flex-direction: column;
+            row-gap: 10px;
+        }
     }
 </style>
     <div class="panel-content">
