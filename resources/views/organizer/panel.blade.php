@@ -92,7 +92,9 @@
                                </div>
                             </section>
                             <footer>
-                                <span>REF: {{date('m/Y',strtotime($events[0]->updated_at))}} à {{date('m/Y',strtotime('today'))}}</span>
+                                @if (isset($events[0]))
+                                    <span>REF: {{date('m/Y',strtotime($events[0]->updated_at))}} à {{date('m/Y',strtotime('today'))}}</span>
+                                @endif
                             </footer>
                         </div>
                         <div class="card">

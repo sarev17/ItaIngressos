@@ -20,6 +20,7 @@ class OrganizerController extends Controller
         $tickets = Tickets::whereIn('event_id',$events->pluck('id'))->where('paid',1)->get();
         $withdraws = Withdraw::whereIn('event_id',$events->pluck('id'))->get();
         $data = ['user', 'events','tickets','withdraws'];
+        // dd(compact($data));
         return view('organizer.panel',compact($data));
     }
     public function updatePix(Request $request){
