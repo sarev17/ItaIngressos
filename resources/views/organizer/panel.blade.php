@@ -58,7 +58,9 @@
                                </div>
                             </section>
                             <footer>
-                                <span>REF: {{date('m/Y',strtotime($tickets[0]->updated_at))}} á {{date('m/Y',strtotime('today'))}}</span>
+                                @if (isset($tickets[0]))
+                                    <span>REF: {{date('m/Y',strtotime($tickets[0]->updated_at))}} á {{date('m/Y',strtotime('today'))}}</span>
+                                @endif
                             </footer>
                         </div>
                         <div class="card bg-blue">
@@ -132,7 +134,7 @@
                                     <td>R$ {{ number_format($event->value_ticket, 2, ',', '.') }}</td>
                                     <td>R$ {{ number_format($event->tickets->where('paid', 1)->sum('price'), 2, ',', '.') }}
                                     </td>
-                                    {{-- <td><a href="" class="btn btn-sm btn-primary">Ver detalhes</a></td> --}}
+                                    <td><a href="" class="btn btn-sm btn-primary"><i class="fa-solid fa-file-pdf"></i> Lista</a></td>
                                     <td><a href="/checkin?event={{$event->id}}" class="btn btn-sm btn-primary"><i class="fa-sharp fa-solid fa-qrcode"></i> Validar ingressos</a></td>
                                 </tr>
                             @endforeach
