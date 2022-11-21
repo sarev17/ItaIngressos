@@ -24,6 +24,13 @@
             flex-direction: column;
             row-gap: 10px;
         }
+        .navbarmenu{
+            flex-direction: column;
+        }
+        .login{
+
+        }
+
     }
 </style>
     <div class="panel-content">
