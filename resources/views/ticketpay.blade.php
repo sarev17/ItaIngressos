@@ -91,9 +91,11 @@ use BaconQrCode\Encoder\QrCode;
                 <span>Valor: R$
                     {{ number_format($event->value_ticket, 2, ',', '.')}} + {{number_format($commissions,2,',','.')}} de taxa de serviço
                 </span>
-                <span class="info-event">
-                    {{$event->info}}
-                </span>
+                @if($event->info !== null)
+                    <span class="info-event">
+                        {{$event->info}}
+                    </span>
+                @endif
                 <form id="data-payer" action="{{ route('tickets.store') }}" method="post">
                     @csrf
                     <br>
