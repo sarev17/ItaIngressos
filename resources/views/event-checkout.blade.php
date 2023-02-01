@@ -77,7 +77,8 @@ use BaconQrCode\Encoder\QrCode;
                             <br>
                             <div>
                                 <div id="time">
-                                    <h4>Aguardando Pagamento: </h4>
+                                    <h4>Aguardando Pagamento.</h4>
+                                    <span>Não reinicie essa página.<br>Verifique seu e-mail após realizar a transferência.</span>
                                     <i class="fa-spin fa-solid fa-spinner"></i>
                                     <span id="timer"></span>
                                 </div>

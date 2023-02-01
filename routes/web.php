@@ -53,6 +53,11 @@ Route::middleware('auth')->group(function(){
         Route::get('panel',[OrganizerController::class,'panel'])->name('home');
         Route::resource('event', EventController::class);
     });
+    Route::get('checkin',function(){
+        return view('organizer.checkin');
+    });
+    Route::get('ckeckin-ticket/{code}',[EventController::class,'checkInTicket']);
+    Route::post('update-pix',[OrganizerController::class,'updatePix']);
 });
 Route::get('verify-payment/{id}',[MercadoPagoController::class,'verifyPayment']);
 Route::get('confirm-pay',function(){
@@ -63,12 +68,7 @@ Route::get('test',function(){
     return view('test');
 });
 Route::get('send-code-email/{email}', [EventController::class, 'sendCode']);
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('checkin',function(){
-        return view('organizer.checkin');
-    });
-    Route::get('ckeckin-ticket/{code}',[EventController::class,'checkInTicket']);
-    Route::post('update-pix',[OrganizerController::class,'updatePix']);
+Route::get('avalie-nos/{ticketId}',function(){
+    return view('evaluation');
 });
 

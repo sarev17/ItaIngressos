@@ -1,5 +1,6 @@
 <?php
 
+use App\Mail\EvaluateMail;
 use App\Mail\SendMailTicket;
 use App\Models\Events;
 use App\Models\Logs;
@@ -183,6 +184,9 @@ function sendTicketMail($ticket_id)
         Logs::create(['type'=>'sendEmail','request'=>$e->getMessage()]);
         return 0;
     }
+}
+function sendEvaluateMail($email,$name,$invoice){
+    Mail::to($email)->send(new EvaluateMail($name,$invoice));
 }
 
 function createPayment(Events $event, $payer, $total)

@@ -28,4 +28,11 @@ class OrganizerController extends Controller
         Alert::success('Chave PIX atualizada!');
         return redirect()->back();
     }
+
+    public function evaluate(Request $request){
+        $ticket = Tickets::where('invoice_id',$request->invoice)->first();
+        if($ticket){
+
+        }
+    }
 }

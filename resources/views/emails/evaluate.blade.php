@@ -42,12 +42,12 @@
         <section>
             <img src="https://www.itaingressos.fun/img/logo.png" alt="">
             <div>
-                <h1>Olá, Andre</h1>
+                <h1>Olá, {{$name}}</h1>
                 <p>Ficamos felizes em tê-lo conosco. Que tal deixar uma sugestão? É rapidinho, só clicar no botão abaixo
                     :)
                 </p>
                 <br>
-                <a href="http://localhost:8000/avalie-nos/9773743">Deixe uma sugestao.</a>
+                <a href="{{config('app.url')}}/avalie-nos/{{$invoice}}">Deixe uma sugestao.</a>
             </div>
         </section>
     </center>

@@ -126,7 +126,7 @@
     @endphp
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            {{-- <div class="container">
+            <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img id="logo" src="{{ asset('img/logo.png') }}" alt="" width="15rem">
                 </a>
@@ -159,7 +159,7 @@
 
                     </ul>
                 </div>
-            </div> --}}
+            </div>
             <header>
                 <picture>
                     <a href="/">
