@@ -29,7 +29,7 @@ class MercadoPagoController extends Controller
                 $payment = statusPayment($request->id);
                 $json = json_decode($payment);
                 Webhook::create(['invoice_id' => $request->id, 'json' => $payment]);
-                if ($json->status == 'approved') {
+                if ($json->status == 'approved' || config('app.ambiente_teste')) {
                     $ticket = Tickets::where('invoice_id', $request->id)->first();
                     $ticket->update(['paid' => 1]);
                     $code = $request->id . '-' . bin2hex(random_bytes(12));
@@ -37,6 +37,8 @@ class MercadoPagoController extends Controller
                         $ticket->update(['ticket_code' => $code]);
                         sendTicketMail($ticket->id);
                     }
+                }else{
+                    // return config('app.ambiente_teste');
                 }
             }else{
                 $json_webhook = json_encode($request->all());

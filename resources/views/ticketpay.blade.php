@@ -1,8 +1,8 @@
 @php
-use Illuminate\Support\Facades\Storage;
-setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-date_default_timezone_set('America/Sao_Paulo');
-use BaconQrCode\Encoder\QrCode;
+    use Illuminate\Support\Facades\Storage;
+    setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+    date_default_timezone_set('America/Sao_Paulo');
+    use BaconQrCode\Encoder\QrCode;
 @endphp
 @extends('layouts.app')
 @section('content')
@@ -57,26 +57,31 @@ use BaconQrCode\Encoder\QrCode;
             font-size: 13pt;
             height: 30px;
         }
-        .pad-panel{
+
+        .pad-panel {
             padding: 20px;
         }
-        .inputs-code input{
+
+        .inputs-code input {
             width: 4rem !important;
             height: 5rem !important;
             display: inline !important;
             text-align: center;
             font-size: 2rem !important;
         }
+
         .inputs-code input[type=number]::-webkit-inner-spin-button {
             -webkit-appearance: none;
 
-}
-        #code{
+        }
+
+        #code {
             visibility: hidden;
         }
-        .info-event{
+
+        .info-event {
             background-color: #d4d4df;
-    padding: 0.6rem;
+            padding: 0.6rem;
         }
     </style>
     <div>
@@ -89,11 +94,12 @@ use BaconQrCode\Encoder\QrCode;
                 <span>Local: {{ $event->location }} {{ $event->city }}-{{ $event->uf }}</span>
                 <span>Data: {{ strftime('%d de %B', strtotime($event->day)) }} as {{ $event->start }}</span>
                 <span>Valor: R$
-                    {{ number_format($event->value_ticket, 2, ',', '.')}} + {{number_format($commissions,2,',','.')}} de taxa de serviço
+                    {{ number_format($event->value_ticket, 2, ',', '.') }} + {{ number_format($commissions, 2, ',', '.') }} de
+                    taxa de serviço
                 </span>
-                @if($event->info !== null)
+                @if ($event->info !== null)
                     <span class="info-event">
-                        {{$event->info}}
+                        {{ $event->info }}
                     </span>
                 @endif
                 <form id="data-payer" action="{{ route('tickets.store') }}" method="post">
@@ -131,8 +137,13 @@ use BaconQrCode\Encoder\QrCode;
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
+                                @if (config('app.ambiente_teste'))
+                                    <br>
+                                    <center><b><span id="emailCode">Gerando código: <i class="fa-solid fa-spinner fa-spin"></i></span></b></center>
+                                @endif
                                 <div class="modal-body">
-                                    <p>Enviamos um código de confirmação para o e-mail <b><span id="send-email"></span></b> digite-o
+                                    <p>Enviamos um código de confirmação para o e-mail <b><span id="send-email"></span></b>
+                                        digite-o
                                         abaixo:</p>
                                     <div class="inputs-code">
                                         <input type="number" maxlength="1" class="i-group" id="i1">
@@ -174,6 +185,7 @@ use BaconQrCode\Encoder\QrCode;
                     url: "/send-code-email/" + email,
                     success: function(response) {
                         code = response;
+                        document.querySelector('#emailCode').innerHTML = "Codigo: " + code;
                     },
                     error: function(response) {
                         console.log("error", response);
@@ -181,30 +193,30 @@ use BaconQrCode\Encoder\QrCode;
                 });
             }
         );
-        $('.i-group').keyup(function(){
-            $('#code').val($('#i1').val()+$('#i2').val()+$('#i3').val()+$('#i4').val());
+        $('.i-group').keyup(function() {
+            $('#code').val($('#i1').val() + $('#i2').val() + $('#i3').val() + $('#i4').val());
         });
-        $('#i1').keyup(function(){
-            if(this.value !== ''){
+        $('#i1').keyup(function() {
+            if (this.value !== '') {
                 $('#i2').focus();
             }
         });
-        $('#i2').keyup(function(){
-            if(this.value !== ''){
+        $('#i2').keyup(function() {
+            if (this.value !== '') {
                 $('#i3').focus();
-            }else{
+            } else {
                 $('#i1').focus();
             }
         });
-        $('#i3').keyup(function(){
-            if(this.value !== ''){
+        $('#i3').keyup(function() {
+            if (this.value !== '') {
                 $('#i4').focus();
-            }else{
+            } else {
                 $('#i2').focus();
             }
         });
-        $('#i4').keyup(function(){
-            if(this.value !== ''){
+        $('#i4').keyup(function() {
+            if (this.value !== '') {
                 if (code == null) {
                     alert("Preencha os dados corretamente");
                     return 0;
@@ -213,7 +225,7 @@ use BaconQrCode\Encoder\QrCode;
                 } else {
                     alert("código invalido")
                 }
-            }else{
+            } else {
                 $('#i3').focus();
             }
         });

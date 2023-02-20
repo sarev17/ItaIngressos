@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
+    'ambiente_teste' => env('TEST_DEVELOPMENT'),
+
     'mercado_pago_access_prod' => env('MERCADO_PAGO_ACCESS_PROD'),
     'mercado_pago_access_test' => env('MERCADO_PAGO_ACCESS_TEST'),
     'mercado_pago_access_use' => env('MERCADO_PAGO_ACCESS_USE'),

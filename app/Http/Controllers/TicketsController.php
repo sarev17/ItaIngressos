@@ -57,7 +57,7 @@ class TicketsController extends Controller
             'required' => 'O campo :attribute é obrigatório',
             'max' => 'CPF inválido',
             'min' => 'CPF inválido',
-            'min' => 'Cadastre ao meno 1 ingresso'
+            'min' => 'Cadastre ao menos 1 ingresso'
         ];
 
         $validator = Validator::make($request->all(), [

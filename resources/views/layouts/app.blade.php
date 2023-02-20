@@ -176,6 +176,14 @@
         </nav>
 
         <main class="py-4">
+            @if(config('app.ambiente_teste'))
+                <div class="p-3 mb-2 bg-warning text-dark">
+                    <center>
+                        <h5>Você está em um ambiente de teste!</h5>
+                    </center>
+
+                </div>
+            @endif
             @yield('content')
         </main>
     </div>

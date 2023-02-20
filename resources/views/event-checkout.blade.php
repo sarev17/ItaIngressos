@@ -1,8 +1,8 @@
 @php
-use Illuminate\Support\Facades\Storage;
-setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-date_default_timezone_set('America/Sao_Paulo');
-use BaconQrCode\Encoder\QrCode;
+    use Illuminate\Support\Facades\Storage;
+    setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+    date_default_timezone_set('America/Sao_Paulo');
+    use BaconQrCode\Encoder\QrCode;
 @endphp
 @extends('layouts.app')
 @section('content')
@@ -40,19 +40,23 @@ use BaconQrCode\Encoder\QrCode;
         span {
             font-size: 12pt;
         }
-        #time{
+
+        #time {
             /* display: flex; */
             align-items: center;
             justify-content: center;
         }
-        #time svg{
+
+        #time svg {
             margin-left: 15px;
             font-size: 14pt;
         }
-        #timer{
+
+        #timer {
             visibility: hidden;
         }
-        #copy:hover{
+
+        #copy:hover {
             /* background-color: #1d459f; */
         }
     </style>
@@ -71,20 +75,30 @@ use BaconQrCode\Encoder\QrCode;
                                 <span></span>
                             </section>
                             <span>
-                                Ingresso: R$ {{ number_format(($event->value_ticket), 2, ',', '.') }} + R$
-                                {{ number_format(($commissions), 2, ',', '.') }} de taxa de serviço
+                                Ingresso: R$ {{ number_format($event->value_ticket, 2, ',', '.') }} + R$
+                                {{ number_format($commissions, 2, ',', '.') }} de taxa de serviço
                             </span>
                             <br>
                             <div>
                                 <div id="time">
                                     <h4>Aguardando Pagamento.</h4>
-                                    <span>Não reinicie essa página.<br>Verifique seu e-mail após realizar a transferência.</span>
+                                    <span>Não reinicie essa página.<br>Verifique seu e-mail após realizar a
+                                        transferência.</span>
                                     <i class="fa-spin fa-solid fa-spinner"></i>
                                     <span id="timer"></span>
                                 </div>
                                 @php echo $qrcode @endphp
                                 <br>
-                                <button id="copy" onclick="copyCode('TEST')" class="btn btn-primary">Copiar código PIX</button><br><br>
+                                @if (config('app.ambiente_teste'))
+                                   <div class="p-3 mb-2 bg-warning text-dark">
+                                    <p>
+                                        Para simular o pagamento acesse a collecton GERAR INGRESSO da API e substitua o campo ID por: <b>{{$ticket->invoice_id}}</b>
+                                        <br> Execute e espere o carregamento.
+                                    </p>
+                                   </div>
+                                @endif
+                                <button id="copy" onclick="copyCode('TEST')" class="btn btn-primary">Copiar código
+                                    PIX</button><br><br>
                             </div>
                         </center>
                     </div>
@@ -110,19 +124,28 @@ use BaconQrCode\Encoder\QrCode;
                 display.textContent = minutes + ":" + seconds;
                 if (--timer < 0) {
                     timer = duration;
-                    $.ajax({
-                        method: 'GET',
-                        url: "/verify-payment/{{$ticket->invoice_id}}",
-                        success: function(response) {
-                            // console.log("{{$ticket->invoice_id}}");
-                            if(response == 1){
-                                window.location.href = '/confirm-pay';
-                            }
-                        },
-                        error: function(response) {
-                            console.log("error", response);
+                    let ajax = new XMLHttpRequest();
+                    ajax.open('get', "/verify-payment/{{ $ticket->invoice_id }}")
+                    ajax.send()
+                    ajax.onload = () => {
+                        if (ajax.response == 1) {
+                            window.location.href = '/confirm-pay';
                         }
-                    });
+
+                    };
+                    // $.ajax({
+                    //     method: 'GET',
+                    //     url: "/verify-payment/{{ $ticket->invoice_id }}",
+                    //     success: function(response) {
+                    //         // console.log("{{ $ticket->invoice_id }}");
+                    //         if(response == 1){
+                    //             window.location.href = '/confirm-pay';
+                    //         }
+                    //     },
+                    //     error: function(response) {
+                    //         console.log("error", response);
+                    //     }
+                    // });
                 }
             }, 1000);
         }
@@ -133,8 +156,8 @@ use BaconQrCode\Encoder\QrCode;
         };
     </script>
     <script>
-        function copyCode(){
-         text = '{{$ticket->qrcode}}'
+        function copyCode() {
+            text = '{{ $ticket->qrcode }}'
             var input = document.createElement('input');
             input.setAttribute('value', text);
             document.body.appendChild(input);
@@ -142,12 +165,12 @@ use BaconQrCode\Encoder\QrCode;
             var result = document.execCommand('copy');
             document.body.removeChild(input);
             $('#copy').text('Código PIX Copiado!');
-            $('#copy').css('background-color','green')
+            $('#copy').css('background-color', 'green')
             setInterval(function() {
                 $('#copy').text('Copiar código PIX');
-                $('#copy').css('background-color','#0B5ED7')
+                $('#copy').css('background-color', '#0B5ED7')
             }, 3000);
 
-    }
+        }
     </script>
 @endsection
